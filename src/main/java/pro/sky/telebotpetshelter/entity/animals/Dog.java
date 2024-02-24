@@ -1,33 +1,47 @@
 package pro.sky.telebotpetshelter.entity.animals;
 
+import jakarta.persistence.*;
+import pro.sky.telebotpetshelter.Utilities.Vaccinations;
+
 import java.util.Objects;
 
+@Entity
 public class Dog {
 
-    private Long dog_id;
-
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column
     private String name;
-
-
+    @Column
     private Integer age;
-
-
+    @Column
     private Boolean isHealthy;
+    @Column
+    private Vaccinations vaccinations;
 
-    public Dog(Long dog_id, String name, Integer age, Boolean isHealthy) {
-        this.dog_id = dog_id;
+
+    public Dog(Long id, String name, Integer age, Boolean isHealthy, Vaccinations vaccinations) {
+        this.id = id;
         this.name = name;
         this.age = age;
         this.isHealthy = isHealthy;
+        this.vaccinations = vaccinations;
     }
 
-    public Long getDog_id() {
-        return dog_id;
+    public Dog(String name, Integer age, Boolean isHealthy, Vaccinations vaccinations) {
+        this.name = name;
+        this.age = age;
+        this.isHealthy = isHealthy;
+        this.vaccinations = vaccinations;
     }
 
-    public void setDog_id(Long dog_id) {
-        this.dog_id = dog_id;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -54,26 +68,35 @@ public class Dog {
         isHealthy = healthy;
     }
 
+    public Vaccinations getVaccinations() {
+        return vaccinations;
+    }
+
+    public void setVaccinations(Vaccinations vaccinations) {
+        this.vaccinations = vaccinations;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Dog dog = (Dog) o;
-        return Objects.equals(dog_id, dog.dog_id) && Objects.equals(name, dog.name) && Objects.equals(age, dog.age) && Objects.equals(isHealthy, dog.isHealthy);
+        return Objects.equals(id, dog.id) && Objects.equals(name, dog.name) && Objects.equals(age, dog.age) && Objects.equals(isHealthy, dog.isHealthy) && vaccinations == dog.vaccinations;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(dog_id, name, age, isHealthy);
+        return Objects.hash(id, name, age, isHealthy, vaccinations);
     }
 
     @Override
     public String toString() {
         return "Dog{" +
-                "dog_id=" + dog_id +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", age=" + age +
                 ", isHealthy=" + isHealthy +
+                ", vaccinations=" + vaccinations +
                 '}';
     }
 }
