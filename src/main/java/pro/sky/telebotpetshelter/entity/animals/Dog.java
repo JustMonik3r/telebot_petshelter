@@ -18,6 +18,7 @@ public class Dog {
     @Column
     private Boolean isHealthy;
     @Column
+    @Enumerated(EnumType.STRING)
     private Vaccinations vaccinations;
 
 
@@ -35,6 +36,7 @@ public class Dog {
         this.isHealthy = isHealthy;
         this.vaccinations = vaccinations;
     }
+    public Dog(){}
 
     public Long getId() {
         return id;

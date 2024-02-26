@@ -17,6 +17,7 @@ public class Cat {
     @Column
     private Boolean isHealthy;
     @Column
+    @Enumerated(EnumType.STRING)
     private Vaccinations vaccinations;
 
 
@@ -42,6 +43,7 @@ public class Cat {
         this.isHealthy = isHealthy;
         this.vaccinations = vaccinations;
     }
+    public Cat(){}
 
 
     public Long getId() {

@@ -49,7 +49,7 @@ public class CatController {
 
 
     @DeleteMapping("/{cat_id}")
-    @Operation(summary = "Удаление кота")
+    @Operation(summary = "Удаление кота по id")
     public ResponseEntity<String> deleteById(@Parameter(description = "ID кота") Long id) {
         try {
             catService.remove(id);
