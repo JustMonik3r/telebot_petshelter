@@ -2,7 +2,7 @@ package pro.sky.telebotpetshelter.service;
 
 
 import pro.sky.telebotpetshelter.entity.animals.Dog;
-import pro.sky.telebotpetshelter.esception.NotFoundException;
+import pro.sky.telebotpetshelter.exceptions.NotFoundException;
 
 
 import java.util.List;

@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import pro.sky.telebotpetshelter.entity.animals.Cat;
-import pro.sky.telebotpetshelter.esception.NotFoundException;
+import pro.sky.telebotpetshelter.exceptions.NotFoundException;
 import pro.sky.telebotpetshelter.repository.CatRepository;
 
 import java.util.List;

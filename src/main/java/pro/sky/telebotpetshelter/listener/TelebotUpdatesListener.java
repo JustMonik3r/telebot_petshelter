@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pro.sky.telebotpetshelter.repository.NotificationTaskRepository;
+import pro.sky.telebotpetshelter.repository.DailyReportRepository;
 
 import java.util.List;
 
@@ -20,9 +20,9 @@ public class TelebotUpdatesListener implements UpdatesListener {
     @Autowired
     private TelegramBot telegramBot;
 
-    private final NotificationTaskRepository notificationTaskRepository;
+    private final DailyReportRepository notificationTaskRepository;
 
-    public TelebotUpdatesListener(NotificationTaskRepository notificationTaskRepository) {
+    public TelebotUpdatesListener(DailyReportRepository notificationTaskRepository) {
         this.notificationTaskRepository = notificationTaskRepository;
     }
 

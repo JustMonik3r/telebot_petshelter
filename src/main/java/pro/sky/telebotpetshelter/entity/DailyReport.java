@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-public class NotificationTask {
+public class DailyReport {
 
     //Создаем модель полученных сообщений в БД
     @Id
@@ -18,13 +18,13 @@ public class NotificationTask {
 
     private LocalDateTime execDate;
 
-    public NotificationTask(Long chatId, String text, LocalDateTime execDate) {
+    public DailyReport(Long chatId, String text, LocalDateTime execDate) {
         this.chatId = chatId;
         this.text = text;
         this.execDate = execDate;
     }
 
-    public NotificationTask() {
+    public DailyReport() {
     }
 
     public Long getId() {
@@ -62,8 +62,8 @@ public class NotificationTask {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof NotificationTask)) return false;
-        NotificationTask that = (NotificationTask) o;
+        if (!(o instanceof DailyReport)) return false;
+        DailyReport that = (DailyReport) o;
         return Objects.equals(getId(), that.getId()) && Objects.equals(getChatId(), that.getChatId()) && Objects.equals(getText(), that.getText()) && Objects.equals(getExecDate(), that.getExecDate());
     }
 
