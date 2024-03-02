@@ -1,11 +1,15 @@
 package pro.sky.telebotpetshelter.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Type;
+
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Objects;
 
 @Entity
+@Table(name = "reports")
 public class Report {
 
     @Id
@@ -15,16 +19,28 @@ public class Report {
     private String diet;
     private String wellBeing;
     private String changeBehavior;
-    private byte[] photo;
     private LocalDateTime date;
 
-    public Report(long id, String diet, String wellBeing, String changeBehavior, byte[] photo, LocalDateTime date) {
+    @Lob
+    @Type(type = "org.hibernate.type.ImageType")
+    @JsonIgnore
+    private byte[] photo;
+
+    @OneToOne
+    @JoinColumn(name = "petOwner_telegramId", referencedColumnName = "telegramId")
+    private PetOwner petOwner;
+
+    @ManyToOne
+    @PrimaryKeyJoinColumn(name = "cat_id", referencedColumnName = "id")
+    private Cat catId;
+
+    public Report(long id, String diet, String wellBeing, String changeBehavior, LocalDateTime date, byte[] photo) {
         this.id = id;
         this.diet = diet;
         this.wellBeing = wellBeing;
         this.changeBehavior = changeBehavior;
-        this.photo = photo;
         this.date = date;
+        this.photo = photo;
     }
 
     public long getId() {
@@ -97,8 +113,8 @@ public class Report {
                 ", diet='" + diet + '\'' +
                 ", wellBeing='" + wellBeing + '\'' +
                 ", changeBehavior='" + changeBehavior + '\'' +
-                ", photo=" + Arrays.toString(photo) +
                 ", date=" + date +
+                ", photo=" + Arrays.toString(photo) +
                 '}';
     }
 }

@@ -2,6 +2,8 @@ package pro.sky.telebotpetshelter.service;
 
 import pro.sky.telebotpetshelter.entity.Report;
 
+import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 
 public interface ReportService {
@@ -13,5 +15,8 @@ public interface ReportService {
 
     void delete(Long id);
 
-    List<Report> findAll();
+    Iterable<Report> findAll();
+
+    byte[] photoDownload(Long id);
+    Collection<Report> findByPetOwnerIdAndDate(Long userId, LocalDateTime dateTime);
 }
