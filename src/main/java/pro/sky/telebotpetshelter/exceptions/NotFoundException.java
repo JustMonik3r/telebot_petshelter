@@ -1,4 +1,4 @@
-package pro.sky.telebotpetshelter.esception;
+package pro.sky.telebotpetshelter.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
