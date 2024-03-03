@@ -4,12 +4,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pro.sky.telebotpetshelter.Utilities.Vaccinations;
+import pro.sky.telebotpetshelter.utils.Vaccinations;
 import pro.sky.telebotpetshelter.entity.animals.Cat;
 import pro.sky.telebotpetshelter.service.CatService;
 
 import java.util.List;
-import java.util.Locale;
 
 @RestController
 @RequestMapping("/cats")

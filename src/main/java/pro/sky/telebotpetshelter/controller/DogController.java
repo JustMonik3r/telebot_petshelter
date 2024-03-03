@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pro.sky.telebotpetshelter.Utilities.Vaccinations;
+import pro.sky.telebotpetshelter.utils.Vaccinations;
 
 import pro.sky.telebotpetshelter.entity.animals.Dog;
 import pro.sky.telebotpetshelter.service.DogService;

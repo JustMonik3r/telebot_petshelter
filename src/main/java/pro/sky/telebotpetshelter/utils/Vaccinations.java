@@ -1,4 +1,4 @@
-package pro.sky.telebotpetshelter.Utilities;
+package pro.sky.telebotpetshelter.utils;
 
 public enum Vaccinations {
     YES("Да"),
