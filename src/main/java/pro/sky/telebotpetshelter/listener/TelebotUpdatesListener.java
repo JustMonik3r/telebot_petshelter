@@ -8,7 +8,9 @@ import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import pro.sky.telebotpetshelter.service.ReportServiceImpl;
 
 import java.util.List;
 
@@ -16,13 +18,17 @@ import java.util.List;
 public class TelebotUpdatesListener implements UpdatesListener {
     private Logger logger = LoggerFactory.getLogger(TelebotUpdatesListener.class);
 
+    @Value("${telegram.bot.token}")
+    TelegramBot bot = new TelegramBot("${telegram.bot.token}");
+
     @Autowired
     private TelegramBot telegramBot;
 
-    private final NotificationTaskRepository notificationTaskRepository;
+    @Autowired
+    private final ReportServiceImpl reportServiceImpl;
 
-    public TelebotUpdatesListener(NotificationTaskRepository notificationTaskRepository) {
-        this.notificationTaskRepository = notificationTaskRepository;
+    public TelebotUpdatesListener(ReportServiceImpl reportServiceImpl) {
+        this.reportServiceImpl  = reportServiceImpl;
     }
 
     @PostConstruct

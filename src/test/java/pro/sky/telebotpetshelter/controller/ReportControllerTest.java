@@ -39,7 +39,7 @@ public class ReportControllerTest {
 
     private Long report_id = 1L;
     private Long chat_id = 1l;
-    private String photo = "Фото";
+    private String photo;
     private LocalDate date = LocalDate.now();
     private String reportTextUnderPhoto = "Cocтояние, самочувствие";
 

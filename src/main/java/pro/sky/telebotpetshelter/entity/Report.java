@@ -30,6 +30,17 @@ public class Report {
     private LocalDate date;
     @Column(name = "report_text_under_photo")
     private String reportTextUnderPhoto;
+
+    @Override
+    public String toString() {
+        return "Report{" +
+                "id=" + id +
+                ", chatId=" + chatId +
+                ", photo='" + photo + '\'' +
+                ", date=" + date +
+                ", reportTextUnderPhoto='" + reportTextUnderPhoto + '\'' +
+                '}';
+    }
 }
 
 
