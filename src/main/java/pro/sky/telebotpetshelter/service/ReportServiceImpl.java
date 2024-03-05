@@ -30,13 +30,13 @@ import java.util.UUID;
 @Service
 public class ReportServiceImpl implements ReportService {
     private final ReportRepository reportRepository;
-    private final PetOwnerRepository petOwnerRepository;
+    //private final PetOwnerRepository petOwnerRepository;
 
     private final Logger logger = LoggerFactory.getLogger(ReportService.class);
 
-    public ReportServiceImpl(ReportRepository reportRepository, PetOwnerRepository petOwnerRepository) {
+    public ReportServiceImpl(ReportRepository reportRepository /*PetOwnerRepository petOwnerRepository*/) {
         this.reportRepository = reportRepository;
-        this.petOwnerRepository = petOwnerRepository;
+        /*this.petOwnerRepository = petOwnerRepository;*/
     }
     /**
      * Метод для получения отчета по id из БД
