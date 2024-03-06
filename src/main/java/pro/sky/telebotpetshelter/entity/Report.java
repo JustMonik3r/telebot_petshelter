@@ -16,7 +16,7 @@ import java.util.Objects;
 @EqualsAndHashCode
 @AllArgsConstructor
 @Entity
-@Table(name = "daily_report")
+@Table(name = "report")
 public class Report {
 
     @Id
