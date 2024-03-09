@@ -7,10 +7,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pro.sky.telebotpetshelter.Utilities.Vaccinations;
 import pro.sky.telebotpetshelter.entity.animals.Cat;
 import pro.sky.telebotpetshelter.exceptions.NotFoundException;
 import pro.sky.telebotpetshelter.repository.CatRepository;
+import pro.sky.telebotpetshelter.utils.Vaccinations;
 
 import java.util.Arrays;
 import java.util.List;
