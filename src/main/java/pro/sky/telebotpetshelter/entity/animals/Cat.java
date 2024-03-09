@@ -1,7 +1,7 @@
 package pro.sky.telebotpetshelter.entity.animals;
 
 import jakarta.persistence.*;
-import pro.sky.telebotpetshelter.Utilities.Vaccinations;
+import pro.sky.telebotpetshelter.utils.Vaccinations;
 
 import java.util.Objects;
 
