@@ -65,6 +65,62 @@ public class DogShelter {
 
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getTimetable() {
+        return timetable;
+    }
+
+    public void setTimetable(String timetable) {
+        this.timetable = timetable;
+    }
+
+    public String getAboutShelter() {
+        return aboutShelter;
+    }
+
+    public void setAboutShelter(String aboutShelter) {
+        this.aboutShelter = aboutShelter;
+    }
+
+    public Long getDogId() {
+        return dogId;
+    }
+
+    public void setDogId(Long dogId) {
+        this.dogId = dogId;
+    }
+
+    public String getSecurity() {
+        return security;
+    }
+
+    public void setSecurity(String security) {
+        this.security = security;
+    }
+
+    public String getSafetyMeasures() {
+        return safetyMeasures;
+    }
+
+    public void setSafetyMeasures(String safetyMeasures) {
+        this.safetyMeasures = safetyMeasures;
+    }
+
     public Long getId() {
         return id;
     }
