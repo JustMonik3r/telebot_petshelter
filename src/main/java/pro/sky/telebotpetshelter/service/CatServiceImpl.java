@@ -33,7 +33,7 @@ public class CatServiceImpl implements CatService {
         if (catId.isEmpty()) {
             throw new NotFoundException("Такого кота точно нет");
         }
-        return catRepository.findById(id).get();
+        return catId.get();
     }
 
     @Override
@@ -43,15 +43,15 @@ public class CatServiceImpl implements CatService {
         if (catId.isEmpty()) {
             throw new NotFoundException("Такого кота нет");
         }
-        Cat catUpdate = getById(cat.getId());
+        Cat catUpdate = catId.get();
         if (cat.getName() != null) {
             catUpdate.setName(cat.getName());
         }
         if (cat.getAge() != null) {
             catUpdate.setAge(cat.getAge());
         }
-        if (cat.getHealthy() != null) {
-            catUpdate.setHealthy(cat.getHealthy());
+        if (cat.getIsHealthy() != null) {
+            catUpdate.setIsHealthy(cat.getIsHealthy());
         }
         if (cat.getVaccinations() != null) {
             catUpdate.setVaccinations(cat.getVaccinations());
