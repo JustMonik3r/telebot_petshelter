@@ -9,10 +9,10 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import pro.sky.telebotpetshelter.Utilities.Vaccinations;
 import pro.sky.telebotpetshelter.entity.animals.Cat;
 import pro.sky.telebotpetshelter.repository.CatRepository;
 import pro.sky.telebotpetshelter.service.CatServiceImpl;
+import pro.sky.telebotpetshelter.utils.Vaccinations;
 
 import java.util.ArrayList;
 import java.util.List;
