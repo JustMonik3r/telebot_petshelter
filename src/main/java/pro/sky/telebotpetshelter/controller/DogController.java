@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pro.sky.telebotpetshelter.Utilities.Vaccinations;
+import pro.sky.telebotpetshelter.utils.Vaccinations;
 
 import pro.sky.telebotpetshelter.entity.animals.Dog;
 import pro.sky.telebotpetshelter.service.DogService;
@@ -12,7 +12,7 @@ import pro.sky.telebotpetshelter.service.DogService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/dog")
+@RequestMapping("/dogs")
 public class DogController {
     private final DogService dogService;
 
@@ -30,9 +30,9 @@ public class DogController {
         return dogService.create(new Dog(name, age, isHealthy, vaccinations));
     }
 
-    @GetMapping("/{dog_id}")
+    @GetMapping("/{id}")
     @Operation(summary = "Получение собаки по ID")
-    public Dog getByCatId(@RequestParam @Parameter(description = "ID собаки") Long id) {
+    public Dog getByDogId(@PathVariable(value = "id") @Parameter(description = "ID собаки") Long id) {
         return dogService.getById(id);
     }
 

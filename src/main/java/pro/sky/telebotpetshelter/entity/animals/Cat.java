@@ -1,7 +1,7 @@
 package pro.sky.telebotpetshelter.entity.animals;
 
 import jakarta.persistence.*;
-import pro.sky.telebotpetshelter.Utilities.Vaccinations;
+import pro.sky.telebotpetshelter.utils.Vaccinations;
 
 import java.util.Objects;
 
@@ -70,11 +70,11 @@ public class Cat {
         this.age = age;
     }
 
-    public Boolean getHealthy() {
+    public Boolean getIsHealthy() {
         return isHealthy;
     }
 
-    public void setHealthy(Boolean healthy) {
+    public void setIsHealthy(Boolean healthy) {
         isHealthy = healthy;
     }
 

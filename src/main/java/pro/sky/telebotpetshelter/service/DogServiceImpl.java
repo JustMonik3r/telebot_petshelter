@@ -34,7 +34,7 @@ public class DogServiceImpl implements DogService {
         if (dogId.isEmpty()) {
             throw new NotFoundException("Такой собаки точно нет");
         }
-        return dogRepository.findById(id).get();
+        return dogId.get();
     }
 
     @Override
@@ -44,15 +44,15 @@ public class DogServiceImpl implements DogService {
         if (docId.isEmpty()) {
             throw new NotFoundException("Такой собаки нет");
         }
-        Dog dogUpdate = getById(dog.getId());
+        Dog dogUpdate = docId.get();
         if (dog.getName() != null) {
             dogUpdate.setName(dog.getName());
         }
         if (dog.getAge() != null) {
             dogUpdate.setAge(dog.getAge());
         }
-        if (dog.getHealthy() != null) {
-            dogUpdate.setHealthy(dog.getHealthy());
+        if (dog.getIsHealthy() != null) {
+            dogUpdate.setIsHealthy(dog.getIsHealthy());
         }
         if (dog.getVaccinations() != null) {
             dogUpdate.setVaccinations(dog.getVaccinations());

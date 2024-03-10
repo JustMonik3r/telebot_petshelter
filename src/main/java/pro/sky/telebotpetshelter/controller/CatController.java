@@ -2,14 +2,14 @@ package pro.sky.telebotpetshelter.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import jakarta.websocket.server.PathParam;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pro.sky.telebotpetshelter.Utilities.Vaccinations;
+import pro.sky.telebotpetshelter.utils.Vaccinations;
 import pro.sky.telebotpetshelter.entity.animals.Cat;
 import pro.sky.telebotpetshelter.service.CatService;
 
 import java.util.List;
-import java.util.Locale;
 
 @RestController
 @RequestMapping("/cats")
@@ -30,9 +30,9 @@ public class CatController {
         return catService.create(new Cat(name, age, isHealthy, vaccinations));
     }
 
-    @GetMapping("/{cat_id}")
+    @GetMapping("/{id}")
     @Operation(summary = "Получение кота по ID")
-    public Cat getByCatId(@RequestParam @Parameter(description = "ID кота") Long id) {
+    public Cat getByCatId(@PathVariable(value = "id") @Parameter(description = "ID-кота") Long id) {
         return catService.getById(id);
     }
 
