@@ -100,6 +100,7 @@ class CatShelterControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/cats/shelters")
+                        .param("id", String.valueOf(id))
                         .param("name", String.valueOf(name))
                         .param("location", String.valueOf(location))
                         .param("timetable", String.valueOf(timetable))
@@ -108,7 +109,7 @@ class CatShelterControllerTest {
                         .param("safetyMeasures", String.valueOf(safetyMeasures))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
-               // .andExpect(status().isOk())
+                .andExpect(status().isOk())
                 .andExpect((ResultMatcher) jsonPath("$.name").value(name))
                 .andExpect((ResultMatcher) jsonPath("$.location").value(location))
                 .andExpect((ResultMatcher) jsonPath("$.security").value(security));
