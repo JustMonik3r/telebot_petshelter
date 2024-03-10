@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import pro.sky.telebotpetshelter.entity.PetOwner;
+import pro.sky.telebotpetshelter.entity.animals.Cat;
+import pro.sky.telebotpetshelter.exceptions.NotFoundException;
 import pro.sky.telebotpetshelter.exceptions.OwnerNotFoundException;
 import pro.sky.telebotpetshelter.repository.PetOwnerRepository;
 
@@ -43,10 +45,16 @@ public class PetOwnerServiceImpl implements PetOwnerService {
         return petOwnerRepository.findAll();
     }
 
+    // Nik редактировал метод updateOwner. Без этого не работал тест
     @Override
     public PetOwner updateOwner(PetOwner petOwner) {
         logger.info("Был вызван метод updateOwner");
-        PetOwner currentOwner = getOwnerById(petOwner.getTelegramId());
+        Optional<PetOwner> OwnerId = petOwnerRepository.findById(petOwner.getTelegramId());
+        if (OwnerId.isEmpty()) {
+            throw new OwnerNotFoundException("Такого владельца нет");
+        }
+        PetOwner currentOwner = OwnerId.get();
+
         currentOwner.setFirstName(petOwner.getFirstName());
         currentOwner.setLastName(petOwner.getLastName());
         return petOwnerRepository.save(currentOwner);
