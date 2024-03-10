@@ -34,18 +34,9 @@ class CatShelterControllerTest {
 
     @MockBean
     private CatShelterRepository catShelterRepository;
-    //CatShelter catShelterDefault;
 
     @SpyBean
     private ShelterServiceImpl_Cat catShelterService;
-
-
-//    @BeforeEach
-//    void init() {
-//        catShelterDefault = new CatShelter();
-//        catShelterDefault.setId(1L);
-//        catShelterDefault.setName(DEFAULT_NAME);
-//    }
 
     private Long id = 1L;
     private String name = "Кошачий приют";
@@ -99,6 +90,7 @@ class CatShelterControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.location").value(location))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.security").value(security));
     }
+
     @Test
     void update() {
     }
@@ -112,9 +104,8 @@ class CatShelterControllerTest {
                         .content(catShelterJSON().toString())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
-                        .andExpect(status().isOk());
+                .andExpect(status().isOk());
     }
-
 
 
     @Test

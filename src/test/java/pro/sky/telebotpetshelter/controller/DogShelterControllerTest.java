@@ -11,18 +11,14 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import pro.sky.telebotpetshelter.entity.CatShelter;
 import pro.sky.telebotpetshelter.entity.DogShelter;
-import pro.sky.telebotpetshelter.repository.CatShelterRepository;
 import pro.sky.telebotpetshelter.repository.DogShelterRepository;
-import pro.sky.telebotpetshelter.service.ShelterServiceImpl_Cat;
 import pro.sky.telebotpetshelter.service.ShelterServiceImpl_Dog;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -92,6 +88,7 @@ class DogShelterControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.location").value(location))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.security").value(security));
     }
+
     @Test
     void update() {
     }
@@ -107,7 +104,6 @@ class DogShelterControllerTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
-
 
 
     @Test
