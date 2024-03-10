@@ -55,7 +55,7 @@ class CatServiceImplTest {
     public void getById() {
         // Создаем кота для теста
         Cat cat = new Cat(1L, "Tom", 3, true, Vaccinations.YES);
-        cat.setId(1L);
+        //cat.setId(1L);
 
         // Мокируем поведение метода findById в репозитории
         Mockito.when(catRepository.findById(1L)).thenReturn(Optional.of(cat));
@@ -118,13 +118,13 @@ class CatServiceImplTest {
 //    public void remove() {
 //        // Создаем кота для теста
 //        Cat cat = new Cat(1L, "Tom", 3, true, Vaccinations.YES);
-//        cat.setId(1L);
+//        //cat.setId(1L);
 //
 //        // Мокируем поведение метода getById в сервисе
 //        Mockito.when(catServiceImpl.getById(1L)).thenReturn(cat);
 //
 //        // Вызываем метод remove
-//        catServiceImpl.remove(1L);
+//        //catServiceImpl.remove(1L);
 //
 //        // Проверяем, что метод getById был вызван один раз с аргументом 1L
 //        Mockito.verify(catServiceImpl, Mockito.times(1)).getById(1L);
