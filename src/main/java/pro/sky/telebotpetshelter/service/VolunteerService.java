@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface VolunteerService {
     Volunteer createVolunteer (Volunteer volunteer);
 
-    Collection<Volunteer> findVolunteers();
+    Collection<Volunteer> findAll();
 
     Optional<Volunteer> findAnyVolunteer();
 

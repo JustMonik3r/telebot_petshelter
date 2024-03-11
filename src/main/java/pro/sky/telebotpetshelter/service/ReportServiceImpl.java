@@ -17,6 +17,7 @@ import org.springframework.util.StringUtils;
 import pro.sky.telebotpetshelter.entity.PetOwner;
 import pro.sky.telebotpetshelter.entity.Report;
 import pro.sky.telebotpetshelter.entity.Volunteer;
+import pro.sky.telebotpetshelter.exceptions.ReportNotFoundException;
 import pro.sky.telebotpetshelter.repository.PetOwnerRepository;
 import pro.sky.telebotpetshelter.repository.ReportRepository;
 
@@ -30,11 +31,11 @@ import java.util.*;
 
 @Service
 public class ReportServiceImpl implements ReportService {
-    private final PetOwner petOwner;
-    private final ReportRepository reportRepository;
-    private final PetOwnerRepository petOwnerRepository;
-    private final PetOwnerServiceImpl petOwnerServiceImpl;
-    private final VolunteerService volunteerService;
+    private  PetOwner petOwner;
+    private  ReportRepository reportRepository;
+    private  PetOwnerRepository petOwnerRepository;
+    private  PetOwnerServiceImpl petOwnerServiceImpl;
+    private  VolunteerService volunteerService;
 
     private final Logger logger = LoggerFactory.getLogger(ReportService.class);
 
@@ -42,7 +43,6 @@ public class ReportServiceImpl implements ReportService {
         this.reportRepository = reportRepository;
         this.petOwnerRepository = petOwnerRepository;
         this.volunteerService = volunteerService;
-        this.petOwner = petOwner;
         this.petOwnerServiceImpl = petOwnerServiceImpl;
     }
     /**
@@ -52,7 +52,7 @@ public class ReportServiceImpl implements ReportService {
      */
     public Report findById(Long id) {
         logger.info("Поиск отчета по id: " + id);
-        return reportRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Отчет не найден"));
+        return reportRepository.findById(id).orElseThrow(() -> new ReportNotFoundException("Отчет не найден"));
     }
 
     /**

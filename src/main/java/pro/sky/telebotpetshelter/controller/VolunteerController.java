@@ -30,14 +30,8 @@ public class VolunteerController {
 
     @Operation(summary = "Получение списка всех волонтеров", description = "Получение списка всех волонтеров")
     @GetMapping
-    public Collection<Volunteer> findVolunteers() {
-        return volunteerService.findVolunteers();
-    }
-
-    @Operation(summary = "Получение любого волонтера из списка", description = "Получение любого волонтера из списка")
-    @GetMapping
-    public Optional<Volunteer> findAnyVolunteer(){
-        return volunteerService.findAnyVolunteer();
+    public Collection<Volunteer> findAll() {
+        return volunteerService.findAll();
     }
 
     @Operation(summary = "Удаление волонтера по id", description = "Удаление волонтера по id")

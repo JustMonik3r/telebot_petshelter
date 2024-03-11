@@ -20,8 +20,8 @@ public class VolunteerServiceImpl implements VolunteerService {
         return volunteerRepository.save(volunteer);
     }
 
-    public Collection<Volunteer> findVolunteers() {
-        return volunteerRepository.findByVolunteerTrue();
+    public Collection<Volunteer> findAll() {
+        return volunteerRepository.findAll();
     }
 
     /**
