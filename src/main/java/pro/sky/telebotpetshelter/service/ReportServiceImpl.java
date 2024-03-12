@@ -215,11 +215,14 @@ public class ReportServiceImpl implements ReportService {
                         "прошли испытательный срок.");
                 SendResponse response4 = bot.execute(messageText4);
                 return response4;
-            } else if ((probationPeriodDate.equals(todayDate) && numberOfRecordsInTable == 27)) {
+            } else if ((probationPeriodDate.equals(todayDate) && numberOfRecordsInTable <= 27 || numberOfRecordsInTable >=24)) {
                 SendMessage messageText5 = new SendMessage(petOwner.getTelegramId(), "Вы отправляли отчеты несвоевременно. " +
-                        "Ваш испытательный срок увеличен на 14 дней.");
+                        "Ваш испытательный срок будет увеличен.");
                 SendResponse response5 = bot.execute(messageText5);
                 return response5;
+            } else if ((probationPeriodDate.equals(todayDate) && numberOfRecordsInTable < 24 )) {
+                SendMessage messageText6 = new SendMessage(petOwner.getTelegramId(), "К сожалению, вы не прошли испытательный срок, " +
+                        "пожалуйста, свяжитесь с волонтером для получения инструкции о дальнейших шагахю");
             }
 
            /* if ((additionalProbationPeriodDate.equals(todayDate) && numberOfRecordsInTable >= 40)) {
