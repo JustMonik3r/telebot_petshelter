@@ -17,6 +17,7 @@ import org.springframework.util.StringUtils;
 import pro.sky.telebotpetshelter.entity.PetOwner;
 import pro.sky.telebotpetshelter.entity.Report;
 import pro.sky.telebotpetshelter.entity.Volunteer;
+import pro.sky.telebotpetshelter.exceptions.OwnerNotFoundException;
 import pro.sky.telebotpetshelter.exceptions.ReportNotFoundException;
 import pro.sky.telebotpetshelter.repository.PetOwnerRepository;
 import pro.sky.telebotpetshelter.repository.ReportRepository;
@@ -51,8 +52,11 @@ public class ReportServiceImpl implements ReportService {
      * @return найденный отчет
      */
     public Report findById(Long id) {
-        logger.info("Поиск отчета по id: " + id);
-        return reportRepository.findById(id).orElseThrow(() -> new ReportNotFoundException("Отчет не найден"));
+        Optional<Report> report = reportRepository.findById(id);
+        if (report.isEmpty()) {
+        throw new ReportNotFoundException("Отчет не найден");
+        }
+        return report.get();
     }
 
     /**
@@ -75,13 +79,12 @@ public class ReportServiceImpl implements ReportService {
     TelegramBot bot = new TelegramBot("${telegram.bot.token}");
 
     /**
-     * The method receives the update and checks if the user had sent both a photo and the caption below.
-     * If not bot asks to send the photo both with the caption.
+     * Этот метод проверяет, отправил ли пользователь и фотографию, и описание ниже.
+     * Если нет, бот просит отправить фото с описанием.
      * <br>
-     * When photo is provided {@link PhotoSize} writes down the size of the photo. {@link Path} writes the path of the photo.
-     * <br>
+     * При предоставлении фотографии {@link PhotoSize} записывает размер фотографии. {@link Path} записывает путь к фотографии.
      * Trigger every day at 12a.m.
-     * The report is being saved to the DB.
+     * Отчет будет сохранен в БД.
      * @throws IOException
      *
      * @param update
@@ -119,6 +122,18 @@ public class ReportServiceImpl implements ReportService {
         return response;
     }
 
+    /**
+     * Этот метод ежедневно напоминает об отправке отчета
+     * Если владелец не отправлял отчет в течение одного дня, бот отправляет ему соответствующее уведомление
+     * Если владелец не отправлял отчет два дня, бот отправляет уведомление владельцу и волонтеру для связи с первым
+     * Если владелец не отправлял отчет в течение четырех дней, его испытательный срок считается непройденным.
+     * Волонтеру приходит соответсвующее уведомление
+     *
+     * По завершению испытательного срока, бот либо поздравляет владельца, либо уведомляет его о дополнительном испытательном сроке,
+     * либо уведомляет о непрохождении испытания.
+     *
+     * @return
+     */
     @Scheduled(cron = "0 0 12 * * ?")
     private SendResponse sendWarning() {
         LocalDate todayDate = LocalDate.now();
@@ -128,8 +143,6 @@ public class ReportServiceImpl implements ReportService {
         LocalDate twoDaysFromLastReportDate;
         LocalDate fourDaysFromLastReportDate;
         LocalDate probationPeriodDate;
-        LocalDate additionalProbationPeriodDate;
-        List<PetOwner> petOwnersWithAdditionalPeriod = new ArrayList<>();
 
         Report lastReport = reportRepository.getLastReportSent(petOwner.getTelegramId());
         lastReportDate = lastReport.getDate();
@@ -140,12 +153,8 @@ public class ReportServiceImpl implements ReportService {
 
         Report firstReport = reportRepository.getFirstReport(petOwner.getTelegramId());
         probationPeriodDate = firstReport.getDate().plusDays(30);
-        additionalProbationPeriodDate = probationPeriodDate.plusDays(14);
-
 
         Long numberOfRecordsInTable = reportRepository.getNumberOfRecords(petOwner.getTelegramId());
-
-//            reportDate = ReportRepository.getDateByChatId(petOwner.getTelegramId());
 
         for (PetOwner petOwner : petOwnerServiceImpl.getAllOwners()) {
             SendMessage messageText = new SendMessage(petOwner.getTelegramId(), "Пожалуйста, отправьте отчёт, " +
@@ -208,8 +217,6 @@ public class ReportServiceImpl implements ReportService {
                 return response7;
             }
 
-//            reportDate = reportRepository.getDateByChatId(petOwner.getTelegramId());
-
             if ((probationPeriodDate.equals(todayDate) && numberOfRecordsInTable >= 28)) {
                 SendMessage messageText4 = new SendMessage(petOwner.getTelegramId(), "Поздравляем! Вы успешно " +
                         "прошли испытательный срок.");
@@ -224,25 +231,6 @@ public class ReportServiceImpl implements ReportService {
                 SendMessage messageText6 = new SendMessage(petOwner.getTelegramId(), "К сожалению, вы не прошли испытательный срок, " +
                         "пожалуйста, свяжитесь с волонтером для получения инструкции о дальнейших шагахю");
             }
-
-           /* if ((additionalProbationPeriodDate.equals(todayDate) && numberOfRecordsInTable >= 40)) {
-                SendMessage messageText6 = new SendMessage(petOwner.getTelegramId(), "Поздравляем! " +
-                        "Вы успешно прошли испытательный срок.");
-                SendResponse response6 = bot.execute(messageText6);
-                return response6;
-            } else if ((additionalProbationPeriodDate.equals(todayDate) && numberOfRecordsInTable <= 39)) {
-                SendMessage messageText5 = new SendMessage(petOwner.getTelegramId(), "К сожалению, Вы не прошли испытательный срок. Пожалуйста, свяжитесь с волонтером " +
-                        "для получения инструкции о дальнейших шагах.");
-                SendResponse response5 = bot.execute(messageText5);
-                return response5;
-            }*/
-
-
-        /*} else if (!todayDate.equals(probationPeriodDate)) {
-            SendMessage messageText5 = new SendMessage(petOwner.getTelegramId(), "К сожалению, " +
-                    "вы не прошли испытательный срок. Пожалуйста, следуйте инструкциям для дальнейших шагов.");
-            SendResponse response5 = bot.execute(messageText5);
-            return response5;*/
         }
         return null;
     }
