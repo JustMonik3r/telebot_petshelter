@@ -10,6 +10,6 @@ import java.util.Optional;
 
 public interface PetOwnerRepository extends JpaRepository<PetOwner, Long> {
 
-    boolean petOwnerId(long telegramId);
+    boolean existsById(long telegramId);
     Optional<PetOwner> findByTelegramId(Long telegramId);
 }
