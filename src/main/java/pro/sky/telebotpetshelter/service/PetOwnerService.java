@@ -6,20 +6,20 @@ import java.util.List;
 
 public interface PetOwnerService {
 
-    // создание и сохранение нового хозяина
-    PetOwner createOwner(PetOwner petOwner);
+    // создание и сохранение нового владельца
+    PetOwner addOwner(PetOwner petOwner);
 
-    // поиск хозяина по ID
+    // поиск владельца по ID
     PetOwner getOwnerById(Long id);
 
 
-    // получение списка всех хозяев
+    // получение списка всех владельцев
     List<PetOwner> getAllOwners();
 
-    // обновление данных хозяина
+    // обновление данных владельца
     PetOwner updateOwner(PetOwner petOwner);
 
-    //удаление хозяина по id
+    //удаление владельца по id
     void deleteOwner(Long id);
 
 }

@@ -2,7 +2,6 @@ package pro.sky.telebotpetshelter.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import pro.sky.telebotpetshelter.entity.PetOwner;
 import pro.sky.telebotpetshelter.entity.animals.Cat;
@@ -24,8 +23,8 @@ public class PetOwnerServiceImpl implements PetOwnerService {
     }
 
     @Override
-    public PetOwner createOwner(PetOwner petOwner) {
-        logger.info("Был вызван метод createOwner");
+    public PetOwner addOwner(PetOwner petOwner) {
+        logger.info("Был вызван метод addOwner");
         return petOwnerRepository.save(petOwner);
     }
 
