@@ -60,6 +60,7 @@ public class PetOwner {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+    public PetOwner(){}
 
     public String getEmail() {
         return email;
