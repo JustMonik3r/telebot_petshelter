@@ -9,7 +9,7 @@ public enum CallbackDataRequest {
     TOM("Том", "TOM"),
     SAMMY("Сэмми", "SAMMY"),
     BARSIK("Барсик", "BARSIK"),
-    CAT("Приют для котов", "CAT"),
+    CAT("Приют для КОТОВ", "CAT"),
     TAKE_CAT("Хочу взять кошечку", "TAKE_CAT"),
     TAKE_DOG("Хочу взять собачку", "TAKE_DOG"),
     DOG("Приют для собак", "DOG"),
