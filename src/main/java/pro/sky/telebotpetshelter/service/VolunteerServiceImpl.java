@@ -21,7 +21,6 @@ public class VolunteerServiceImpl implements VolunteerService {
      * @param volunteer
      * @return
      */
-
     public Volunteer createVolunteer (Volunteer volunteer){
         return volunteerRepository.save(volunteer);
     }

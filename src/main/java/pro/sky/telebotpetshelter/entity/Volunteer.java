@@ -3,7 +3,7 @@ package pro.sky.telebotpetshelter.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.Id;
 
 @Entity
 @Table(name = "volunteers")
@@ -44,6 +44,7 @@ public class Volunteer {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+    public Volunteer(){}
 
     @Override
     public String toString() {

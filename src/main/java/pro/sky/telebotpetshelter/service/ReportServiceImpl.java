@@ -7,7 +7,7 @@ import com.pengrad.telegrambot.request.GetFile;
 import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.response.GetFileResponse;
 import com.pengrad.telegrambot.response.SendResponse;
-import jakarta.persistence.EntityNotFoundException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +17,6 @@ import org.springframework.util.StringUtils;
 import pro.sky.telebotpetshelter.entity.PetOwner;
 import pro.sky.telebotpetshelter.entity.Report;
 import pro.sky.telebotpetshelter.entity.Volunteer;
-import pro.sky.telebotpetshelter.exceptions.OwnerNotFoundException;
 import pro.sky.telebotpetshelter.exceptions.ReportNotFoundException;
 import pro.sky.telebotpetshelter.repository.PetOwnerRepository;
 import pro.sky.telebotpetshelter.repository.ReportRepository;
@@ -27,22 +26,19 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
 public class ReportServiceImpl implements ReportService {
-    private  PetOwner petOwner;
+    private PetOwner petOwner;
     private  ReportRepository reportRepository;
-    private  PetOwnerRepository petOwnerRepository;
     private  PetOwnerServiceImpl petOwnerServiceImpl;
     private  VolunteerService volunteerService;
 
     private final Logger logger = LoggerFactory.getLogger(ReportService.class);
 
-    public ReportServiceImpl(PetOwner petOwner, PetOwnerServiceImpl petOwnerServiceImpl, ReportRepository reportRepository, PetOwnerRepository petOwnerRepository, VolunteerService volunteerService) {
+    public ReportServiceImpl(PetOwnerServiceImpl petOwnerServiceImpl, ReportRepository reportRepository, PetOwnerRepository petOwnerRepository, VolunteerService volunteerService) {
         this.reportRepository = reportRepository;
-        this.petOwnerRepository = petOwnerRepository;
         this.volunteerService = volunteerService;
         this.petOwnerServiceImpl = petOwnerServiceImpl;
     }

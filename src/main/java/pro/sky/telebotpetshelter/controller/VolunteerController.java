@@ -24,8 +24,11 @@ public class VolunteerController {
 
     @Operation(summary = "Создание нового волонтера", description = "Создание нового волонтера")
     @PostMapping
-    public Volunteer createVolunteer(@RequestBody Volunteer volunteer) {
-        return volunteerService.createVolunteer(volunteer);
+    public Volunteer createVolunteer (
+        @RequestParam @Parameter(description = "Telegram ID волонтера") Long telegramId,
+        @RequestParam @Parameter(description = "Имя волонтера") String firstName,
+        @RequestParam @Parameter(description = "Фамилия волонтера") String lastName){
+    return volunteerService.createVolunteer(new Volunteer(telegramId, firstName, lastName));
     }
 
     @Operation(summary = "Получение списка всех волонтеров", description = "Получение списка всех волонтеров")
@@ -35,8 +38,8 @@ public class VolunteerController {
     }
 
     @Operation(summary = "Удаление волонтера по id", description = "Удаление волонтера по id")
-    @DeleteMapping("/{id}")
-    public ResponseEntity deleteVolunteer(@Parameter(description = "Id волонтера") @PathVariable Long telegramId) {
+    @DeleteMapping("/{telegramId}")
+    public ResponseEntity  deleteVolunteer(@Parameter(description = "Id волонтера") @PathVariable Long telegramId) {
         volunteerService.deleteVolunteer(telegramId);
         return ResponseEntity.ok().build();
     }
