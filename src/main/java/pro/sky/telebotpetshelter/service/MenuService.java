@@ -14,11 +14,11 @@ public class MenuService {
     @Value("${telegram.bot.token}")
     TelegramBot telegramBot = new TelegramBot("${telegram.bot.token}");
     private final KeyboardUtil keyboardUtil;
-    private final PetOwnerServiceImpl petOwnerService;
+    private final UserNameServiceImpl userNameService;
 
-    public MenuService(KeyboardUtil keyboardUtil, PetOwnerServiceImpl petOwnerService) {
+    public MenuService(KeyboardUtil keyboardUtil, UserNameServiceImpl userNameService) {
         this.keyboardUtil = keyboardUtil;
-        this.petOwnerService = petOwnerService;
+        this.userNameService = userNameService;
     }
 
     public SendMessage CatNamesMenu(Long chatId) {
@@ -37,8 +37,8 @@ public class MenuService {
     }
     public SendMessage getStartMenuShelter(Update update) {
         InlineKeyboardMarkup keyboard = keyboardUtil.setKeyboard(CAT, DOG);
-        if (petOwnerService.newUser(update)) {
-            petOwnerService.registerUser(update);
+        if (userNameService.newUser(update)) {
+            userNameService.registerUser(update);
 
             SendMessage sendMessage = new SendMessage(update.message().chat().id(), "Добро пожаловать в наш приют! Если вы ищете верного и преданного друга, то пришли по адресу! " +
                     " Вы хотите подружиться с кошкой или с " +

@@ -23,9 +23,9 @@ public interface PetOwnerService {
     //удаление владельца по id
     void deleteOwner(Long id);
 
-    void registerUser(Update update);
-
-    boolean newUser(Update update);
+//    void registerUser(Update update);
+//
+//    boolean newUser(Update update);
 
     boolean existsById(Long id);
 }

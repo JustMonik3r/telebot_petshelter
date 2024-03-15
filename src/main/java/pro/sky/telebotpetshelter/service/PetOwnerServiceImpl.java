@@ -69,19 +69,19 @@ public class PetOwnerServiceImpl implements PetOwnerService {
         petOwnerRepository.deleteById(id);
     }
 
-    @Override
-    public void registerUser(Update update) {
-        Long chatId = update.message().chat().id();
-        PetOwner petOwner = new PetOwner();
-        petOwner.setTelegramId(chatId);
-        petOwner.setFirstName(update.message().chat().firstName());
-        petOwnerRepository.save(petOwner);
-    }
-
-    @Override
-    public boolean newUser(Update update) {
-        return !(petOwnerRepository.existsById(update.message().chat().id()));
-    }
+//    @Override
+//    public void registerUser(Update update) {
+//        Long chatId = update.message().chat().id();
+//        PetOwner petOwner = new PetOwner();
+//        petOwner.setTelegramId(chatId);
+//        petOwner.setFirstName(update.message().chat().firstName());
+//        petOwnerRepository.save(petOwner);
+//    }
+//
+//    @Override
+//    public boolean newUser(Update update) {
+//        return !(petOwnerRepository.existsById(update.message().chat().id()));
+//    }
 
     @Override
     public boolean existsById(Long id) {
