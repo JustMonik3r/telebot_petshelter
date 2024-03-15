@@ -12,6 +12,7 @@ public interface PetOwnerService {
     // поиск хозяина по ID
     PetOwner getOwnerById(Long id);
 
+    boolean existsById(Long id);
 
     // получение списка всех хозяев
     List<PetOwner> getAllOwners();

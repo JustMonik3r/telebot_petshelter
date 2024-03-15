@@ -6,5 +6,5 @@ import pro.sky.telebotpetshelter.entity.Volunteer;
 import java.util.Collection;
 
 public interface VolunteerRepository extends JpaRepository<Volunteer, Long> {
-    Collection<Volunteer> findByVolunteerTrue();
+    //Collection<Volunteer> findByVolunteerTrue();
 }

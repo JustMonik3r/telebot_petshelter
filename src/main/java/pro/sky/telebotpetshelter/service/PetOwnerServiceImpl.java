@@ -2,11 +2,8 @@ package pro.sky.telebotpetshelter.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import pro.sky.telebotpetshelter.entity.PetOwner;
-import pro.sky.telebotpetshelter.entity.animals.Cat;
-import pro.sky.telebotpetshelter.exceptions.NotFoundException;
 import pro.sky.telebotpetshelter.exceptions.OwnerNotFoundException;
 import pro.sky.telebotpetshelter.repository.PetOwnerRepository;
 
@@ -16,7 +13,7 @@ import java.util.Optional;
 @Service
 public class PetOwnerServiceImpl implements PetOwnerService {
 
-    private final PetOwnerRepository petOwnerRepository;
+    private PetOwnerRepository petOwnerRepository;
     private final Logger logger = LoggerFactory.getLogger(PetOwnerService.class);
 
     public PetOwnerServiceImpl(PetOwnerRepository petOwnerRepository) {
@@ -37,6 +34,11 @@ public class PetOwnerServiceImpl implements PetOwnerService {
             throw new OwnerNotFoundException(String.format("Owner [%s] not found", id));
         }
         return petOwner.get();
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        return petOwnerRepository.existsById(id);
     }
 
     @Override
@@ -65,4 +67,5 @@ public class PetOwnerServiceImpl implements PetOwnerService {
         logger.info("Был вызван метод deleteOwner");
         petOwnerRepository.deleteById(id);
     }
+
 }

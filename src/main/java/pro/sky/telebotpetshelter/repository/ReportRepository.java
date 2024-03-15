@@ -6,9 +6,6 @@ import org.springframework.stereotype.Repository;
 import pro.sky.telebotpetshelter.entity.Report;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.stream.Collectors;
 
 /**
  * Создаем репозиторий в БД для хранения полученных отчетов
@@ -19,7 +16,7 @@ public interface ReportRepository extends JpaRepository<Report,Long> {
     LocalDate getDateByChatId(Long chatId);
 
     @Query(value = "select * from report where chat_id=? ORDER BY sent_date DESC LIMIT 1", nativeQuery = true)
-    Report getLastReportSent(Long chatId);
+    Report getLastReportSent();
 
     @Query(value = "select COUNT(*) AS record_count report where chat_id=?", nativeQuery = true)
     Long getNumberOfRecords(Long chatId);

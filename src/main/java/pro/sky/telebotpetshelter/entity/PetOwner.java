@@ -46,6 +46,7 @@ public class PetOwner {
         this.lastName = lastName;
     }
 
+    public PetOwner(){}
     public PetOwner(Long telegramId, String firstName, String lastName) {
         this.telegramId = telegramId;
         this.firstName = firstName;

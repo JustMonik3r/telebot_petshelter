@@ -1,14 +1,9 @@
 package pro.sky.telebotpetshelter.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Type;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Objects;
 
 @NoArgsConstructor
 @Getter

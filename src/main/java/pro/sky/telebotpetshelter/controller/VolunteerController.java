@@ -4,9 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pro.sky.telebotpetshelter.entity.Report;
 import pro.sky.telebotpetshelter.entity.Volunteer;
-import pro.sky.telebotpetshelter.service.ReportService;
 import pro.sky.telebotpetshelter.service.VolunteerService;
 
 import java.util.Collection;
@@ -35,7 +33,7 @@ public class VolunteerController {
     }
 
     @Operation(summary = "Получение любого волонтера из списка", description = "Получение любого волонтера из списка")
-    @GetMapping
+    @GetMapping("/any")
     public Optional<Volunteer> findAnyVolunteer(){
         return volunteerService.findAnyVolunteer();
     }

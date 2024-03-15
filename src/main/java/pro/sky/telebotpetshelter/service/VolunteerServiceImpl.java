@@ -21,7 +21,8 @@ public class VolunteerServiceImpl implements VolunteerService {
     }
 
     public Collection<Volunteer> findVolunteers() {
-        return volunteerRepository.findByVolunteerTrue();
+        //return volunteerRepository.findByVolunteerTrue();
+        return volunteerRepository.findAll();
     }
 
     /**
