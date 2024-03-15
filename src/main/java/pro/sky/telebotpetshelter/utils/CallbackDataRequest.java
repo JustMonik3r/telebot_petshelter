@@ -10,17 +10,16 @@ public enum CallbackDataRequest {
     SAMMY("Сэмми", "SAMMY"),
     BARSIK("Барсик", "BARSIK"),*/
     CAT("Приют для котов", "CAT"),
+    DOG("Приют для собак", "DOG"),
     TAKE_CAT("Хочу взять кошечку", "TAKE_CAT"),
     TAKE_DOG("Хочу взять собачку", "TAKE_DOG"),
-    DOG("Приют для собак", "DOG"),
     GENERAL_SHELTER_INFO("Информация о приюте", "GENERAL_SHELTER_INFO"),
     HOW_TO_TAKE_ANIMAL("Как взять животное из приюта", "HOW_TO_TAKE_ANIMAL"),
     REPORT_ANIMAL("Прислать отчет о питомце", "REPORT_ANIMAL"),
     VOLUNTEER("Позвать волонтера", "VOLUNTEER"),
     ABOUT_SHELTER("О нас", "ABOUT_SHELTER"),
-    LOCATION("Как нас найти", "LOCATION"),
-    TIMETABLE("Когда мы работаем", "TIMETABLE"),
-    SECURITY("Как оформить пропуск на машину", "SECURITY"),
+    CONTACTS("Наши контакты", "CONTACTS"),
+    SECURITY("Оформить пропуск на машину", "SECURITY"),
     SAFETY_IN_SHELTER_TERRITORY("Техника безопасности на территории приюта", "SAFETY_IN_SHELTER_TERRITORY"),
     GIVE_MY_CONTACT("Оставить контакт для связи", "GIVE_MY_CONTACT"),
     ROLLBACK("Вернуться назад", "ROLLBACK"),
@@ -34,6 +33,8 @@ public enum CallbackDataRequest {
     HOUSE_RULES_FOR_ANIMAL_WITH_DISABILITY("Уход за животными с ограниченными возможностями", "HOUSE_RULES_FOR_ANIMAL_WITH_DISABILITY"),
     CYNOLOGIST_ADVICE("Рекомендации по уходу от кинологов", "CYNOLOGIST_ADVICE"),
     CYNOLOGISTS("Рекомендованные кинологи", "CYNOLOGISTS"),
+    FELINOLOGIST_ADVICE("Рекомендации по уходу от фелинологов", "FELINOLOGIST_ADVICE"),
+    FELINOLOGISTS("Рекомендованные фелинологи", "FELINOLOGISTS"),
     REFUSE_REASONS("Причины для отказа в усыновлении собаки", "REFUSE_REASONS");
 
     private final String text;

@@ -43,4 +43,8 @@ public class PetShelterInfo {
     public SendMessage getReasonsForRefusal(Long chatId) {
         return null;
     }
+
+    public SendMessage getCatHandlerTips(Long chatId) { return null;    }
+
+    public SendMessage getRecForProvenCatHandlers(Long chatId) { return null;    }
 }

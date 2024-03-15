@@ -48,36 +48,18 @@ public class ButtonReactionService {
             case GENERAL_SHELTER_INFO:
                 return menuService.getInfoAboutShelter(chatId);
             case ABOUT_SHELTER:
-                if (isCat) {
-                    return messageSender.sendMessage(chatId, catShelterService.getInfo());
-                } else {
-                    return messageSender.sendMessage(chatId, dogShelterService.getInfo());
-                }
-            case LOCATION:
-                if (isCat) {
-                    return messageSender.sendMessage(chatId, catShelterService.getLocation());
-
-                } else
-                    return messageSender.sendMessage(chatId, dogShelterService.getLocation());
-            case TIMETABLE:
-                if (isCat) {
-                    return messageSender.sendMessage(chatId, catShelterService.getTimetable());
-                } else
-                    return messageSender.sendMessage(chatId,  dogShelterService.getTimetable());
+                return isCat ? messageSender.sendMessage(chatId, catShelterService.getInfo()) : messageSender.sendMessage(chatId, dogShelterService.getInfo());
+            case CONTACTS:
+                return isCat ? messageSender.sendMessage(chatId, catShelterService.getContacts()) : messageSender.sendMessage(chatId, dogShelterService.getContacts());
             case SECURITY:
-                if (isCat) {
-                    return messageSender.sendMessage(chatId, catShelterService.getSecurity());
-                } else
-                    return messageSender.sendMessage(chatId, dogShelterService.getSecurity());
+                return isCat ? messageSender.sendMessage(chatId, catShelterService.getSecurity()) : messageSender.sendMessage(chatId, dogShelterService.getSecurity());
             case SAFETY_IN_SHELTER_TERRITORY:
-                if (isCat) {
-                    return messageSender.sendMessage(chatId, catShelterService.getSafetyAdvice());
-                } else
-                    return messageSender.sendMessage(chatId, dogShelterService.getSafetyAdvice());
+                return isCat ? messageSender.sendMessage(chatId, catShelterService.getSafetyAdvice()) : messageSender.sendMessage(chatId, dogShelterService.getSafetyAdvice());
             case HOW_TO_TAKE_ANIMAL:
-                return menuService.getInfoAboutTakeAnimal(chatId);
+                return isCat ? menuService.getInfoAboutTakeAnimalCat(chatId) : menuService.getInfoAboutTakeAnimalDog(chatId);
             case GIVE_MY_CONTACT:
-                return messageSender.sendMessage(chatId, "Введите пожалуйста ваш номер, имя и электронную почту и наш волонтёр свяжется с вами в ближайшее время.");
+                return messageSender.sendMessage(chatId, "Введите пожалуйста ваш номер, имя и электронную почту и наш волонтёр свяжется с " +
+                        "вами в ближайшее время.");
             case VOLUNTEER:
                 return textHandler.getVolunteerHelp(chatId);
             case ROLLBACK:
@@ -98,10 +80,15 @@ public class ButtonReactionService {
                 return petShelterInfo.getDogHandlerTips(chatId);
             case CYNOLOGISTS:
                 return petShelterInfo.getRecForProvenDogHandlers(chatId);
+            case FELINOLOGIST_ADVICE:
+                return petShelterInfo.getCatHandlerTips(chatId);
+            case FELINOLOGISTS:
+                return petShelterInfo.getRecForProvenCatHandlers(chatId);
             case REFUSE_REASONS:
                 return petShelterInfo.getReasonsForRefusal(chatId);
             case REPORT_ANIMAL:
-                return messageSender.sendMessage(chatId, "Чтобы бот принял ваш отчет нужно прислать фотографию питомца, и в описании написать рацион животного, общее самочувствие и привыкание к новому месту, а также изменение в поведении. Напишите всё одним сообщением.");
+                return messageSender.sendMessage(chatId, "Чтобы бот принял ваш отчет нужно прислать фотографию питомца, и в описании написать " +
+                        "рацион животного, общее самочувствие и привыкание к новому месту, а также изменение в поведении. Напишите всё одним сообщением.");
 //            case TAKE_CAT:
 //                if (isCat) {
 //                    takeAnimalService.getInfoAboutAllCats(chatId);
@@ -115,13 +102,16 @@ public class ButtonReactionService {
 //            case GARFIELD, OSCAR, VASYA, TOM, BARSIK, SAMMY:
 //                if (animalAdopterService.existsById(chatId)) {
 //                    takeAnimalService.addTookAnimalField(chatId);
-//                    return messageSender.sendMessage(chatId, "Спасибо за ответ. Наш волонтёр свяжется с вами в ближайшее время, чтобы обсудить, когда вы сможете забрать питомца и заполнить документы");
+//                    return messageSender.sendMessage(chatId, "Спасибо за ответ. Наш волонтёр свяжется с вами в ближайшее время, " +
+//                            "чтобы обсудить, когда вы сможете забрать питомца и заполнить документы");
 //                } else
-//                    return messageSender.sendMessage(chatId, "Извините, у нас ещё нет ваших данных, чтобы наш волонтёр смог с вами связаться и уточнить информацию. Введите пожалуйста ваш номер, имя и электронную почту и наш волонтёр свяжется с вами в ближайшее время. Порядок написания данных не важен.");
+//                    return messageSender.sendMessage(chatId, "Извините, у нас ещё нет ваших данных, чтобы наш волонтёр смог с вами " +
+//                            "связаться и уточнить информацию. Введите пожалуйста ваш номер, имя и электронную почту и наш волонтёр свяжется " +
+//                            "с вами в ближайшее время. Порядок написания данных не важен.");
 //            case NO:
 //            return messageSender.sendMessage(chatId, "Спасибо за ответ. Будем вас ждать позже");
             default:
-                return messageSender.sendMessage(chatId, "Обратитесь к волонтеру по телефону: 89111111111");
+                return messageSender.sendMessage(chatId, "Обратитесь к волонтеру по телефону: +79012345678");
         }
     }
 }
