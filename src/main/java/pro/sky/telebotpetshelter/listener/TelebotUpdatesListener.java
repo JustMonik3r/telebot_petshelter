@@ -13,10 +13,7 @@ import org.springframework.stereotype.Service;
 import pro.sky.telebotpetshelter.repository.DailyReportRepository;
 import pro.sky.telebotpetshelter.repository.PetOwnerRepository;
 import pro.sky.telebotpetshelter.repository.UserNameRepository;
-import pro.sky.telebotpetshelter.service.ButtonReactionService;
-import pro.sky.telebotpetshelter.service.MenuService;
-import pro.sky.telebotpetshelter.service.UpdateTextHandlerImpl;
-import pro.sky.telebotpetshelter.service.UserNameService;
+import pro.sky.telebotpetshelter.service.*;
 
 import java.util.List;
 
@@ -41,9 +38,9 @@ public class TelebotUpdatesListener implements UpdatesListener {
     private ButtonReactionService buttonReactionService;
     @Autowired
     private UpdateTextHandlerImpl updateTextHandler;
-//
-//    @Autowired
-//    private DailyReportServiceImlp dailyReportService;
+
+    @Autowired
+    private ReportServiceImpl reportServiceImpl;
 
     @PostConstruct
     public void init() {
@@ -61,9 +58,9 @@ public class TelebotUpdatesListener implements UpdatesListener {
                     buttonReactionService.buttonReaction(update.callbackQuery());
                 } else if (update.message().text() != null) {
                     updateTextHandler.handleStartMessage(update);
-                } //else if (update.message().photo() != null || update.message().caption() != null) {
-//                    dailyReportService.postReport(update);
-//                }
+                } else if (update.message().photo() != null || update.message().caption() != null) {
+                    reportServiceImpl.postReport(update);
+                }
 
 
             });
