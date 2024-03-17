@@ -21,6 +21,7 @@
   create table pet_owners
   (
     telegram_id bigint not null primary key,
+    id bigserial not null,
     first_name varchar(255) not null,
     last_name varchar(255) not null,
     phone_number bigint not null,

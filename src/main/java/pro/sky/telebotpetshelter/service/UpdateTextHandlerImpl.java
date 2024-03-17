@@ -54,7 +54,7 @@ public class UpdateTextHandlerImpl {
             String messageText = update.message().text();
             PetOwner petOwner = new PetOwner();
             petOwner.setTelegramId(update.message().chat().id());
-            petOwner.setFirstName(getNameFromMessage(messageText));
+            petOwner.setName(getNameFromMessage(messageText));
             petOwner.setPhoneNumber(getPhoneFromMessage(messageText));
             petOwner.setEmail(getEmailFromMessage(messageText));
 

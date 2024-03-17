@@ -29,7 +29,7 @@ class PetOwnerServiceImplTest {
     @Test
     void createOwner() {
         // Создаем объект владелец для теста
-        PetOwner petOwner = new PetOwner(1L, "Иванов", "Иван");
+        PetOwner petOwner = new PetOwner(1L, "Иванов Иван");
 
         // Мокируем поведение метода save в репозитории
         when(petOwnerRepository.save(petOwner)).thenReturn(petOwner);
@@ -40,14 +40,14 @@ class PetOwnerServiceImplTest {
         // Проверяем, что метод save был вызван один раз
         verify(petOwnerRepository, times(1)).save(petOwner);
         // Проверяем, что имя владельца совпадает с возвращенным именем
-        assertEquals(petOwner.getFirstName(), createdOwner.getFirstName());
+        assertEquals(petOwner.getName(), createdOwner.getName());
 
     }
 
     @Test
     void getOwnerById() {
         Long ownerId = 1L;
-        PetOwner petOwner = new PetOwner(1L, "Иванов", "Иван");
+        PetOwner petOwner = new PetOwner(1L, "Иванов Иван");
         petOwner.setTelegramId(ownerId);
         when(petOwnerRepository.findByTelegramId(ownerId)).thenReturn(Optional.of(petOwner));
 
@@ -55,7 +55,7 @@ class PetOwnerServiceImplTest {
 
         verify(petOwnerRepository, times(1)).findByTelegramId(ownerId);
         assertEquals(ownerId, retrievedOwner.getTelegramId());
-        assertEquals(petOwner.getFirstName(), retrievedOwner.getFirstName());
+        assertEquals(petOwner.getName(), retrievedOwner.getName());
     }
 
     @Test
@@ -70,16 +70,16 @@ class PetOwnerServiceImplTest {
     @Test
     void getAllOwners() {
         List<PetOwner> owners = new ArrayList<>();
-        owners.add(new PetOwner(1L, "Иванов", "Иван"));
-        owners.add(new PetOwner(2L, "Петров", "Петр"));
+        owners.add(new PetOwner(1L, "Иванов Иван"));
+        owners.add(new PetOwner(2L, "Петров Петр"));
         when(petOwnerRepository.findAll()).thenReturn(owners);
 
         List<PetOwner> retrievedOwners = petOwnerService.getAllOwners();
 
         verify(petOwnerRepository, times(1)).findAll();
         assertEquals(2, retrievedOwners.size());
-        assertEquals("Иванов", retrievedOwners.get(0).getFirstName());
-        assertEquals("Петров", retrievedOwners.get(1).getFirstName());
+        assertEquals("Иванов Иван", retrievedOwners.get(0).getName());
+        assertEquals("Петров Петр", retrievedOwners.get(1).getName());
     }
     @Test
     public void testGetAllOwners_EmptyList() {
@@ -98,8 +98,8 @@ class PetOwnerServiceImplTest {
     @Test
     void updateOwner() {
         // Arrange
-        PetOwner existingOwner = new PetOwner(1L, "Иванов", "Иван");
-        PetOwner updatedOwner = new PetOwner(1L, "Сидоров", "Сидор");
+        PetOwner existingOwner = new PetOwner(1L, "Иванов Иван");
+        PetOwner updatedOwner = new PetOwner(1L, "Сидоров Сидор");
 
         when(petOwnerRepository.findById(1L)).thenReturn(Optional.of(existingOwner));
         when(petOwnerRepository.save(updatedOwner)).thenReturn(updatedOwner);
@@ -112,13 +112,13 @@ class PetOwnerServiceImplTest {
         //verify(logger, times(1)).info("Был вызван метод updateOwner");
         verify(petOwnerRepository, times(1)).findById(1L);
         verify(petOwnerRepository, times(1)).save(existingOwner);
-        assertEquals("Сидоров", result.getFirstName());
+        assertEquals("Сидоров Сидор", result.getName());
     }
     // Nik редактировал метод updateOwner. Без этого не работал тест
     @Test
     public void testUpdateOwner_NonExistentOwner() {
         // Arrange
-        PetOwner updatedOwner = new PetOwner(1L, "Иванов", "Иван");
+        PetOwner updatedOwner = new PetOwner(1L, "Иванов Иван");
         when(petOwnerRepository.findById(1L)).thenReturn(Optional.empty());
 
         // Act & Assert

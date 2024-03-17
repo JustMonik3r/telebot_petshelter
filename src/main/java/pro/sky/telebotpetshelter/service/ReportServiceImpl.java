@@ -169,7 +169,7 @@ public class ReportServiceImpl implements ReportService {
 
                     SendMessage messageText2 = new SendMessage(volunteer1.getTelegramId(),
                             String.format("Последний отчет был принят более двух дней назад у : %s %s.",
-                                    petOwner.getFirstName(), petOwner.getLastName()));
+                                    petOwner.getName()));
                     SendResponse response2 = bot.execute(messageText2);
                     return response2;
                 }
@@ -192,7 +192,7 @@ public class ReportServiceImpl implements ReportService {
                     SendMessage messageText6 = new SendMessage(volunteer1.getTelegramId(),
                             String.format("Последний отчет был принят более четырех дней назад у : %s %s. " +
                                             "Пожалуйста, свяжитесь с усыновителем.",
-                                    petOwner.getFirstName(), petOwner.getLastName()));
+                                    petOwner.getName()));
                     SendResponse response6 = bot.execute(messageText6);
                     return response6;
                 }

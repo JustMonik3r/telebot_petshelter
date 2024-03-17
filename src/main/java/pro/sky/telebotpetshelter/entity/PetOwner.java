@@ -13,13 +13,14 @@ public class PetOwner {
 
     @Id
     @Column(name = "id")
+    private Long id;
+
+    @Column(name = "telegram_id")
     private Long telegramId;
 
-    @Column(name = "first_name")
-    private String firstName;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "last_name")
-    private String lastName;
 
     @Column(name = "e-mail")
     private String email;
@@ -30,6 +31,15 @@ public class PetOwner {
     @Column(name = "took_an_animal")
     private boolean tookAnAnimal;
 
+    public PetOwner(Long id, Long telegramId, String name, String email, Long phoneNumber, boolean tookAnAnimal) {
+        this.id = id;
+        this.telegramId = telegramId;
+        this.name = name;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.tookAnAnimal = tookAnAnimal;
+    }
+
 
     public Long getTelegramId() {
         return telegramId;
@@ -39,44 +49,59 @@ public class PetOwner {
         this.telegramId = telegramId;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public PetOwner(Long telegramId, String firstName, String lastName) {
+    public PetOwner(Long telegramId, String name) {
         this.telegramId = telegramId;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
     }
     //Nik добавил конструктор без ID
 
-    public PetOwner(String firstName, String lastName, String email, Long phoneNumber, boolean tookAnAnimal) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public PetOwner(String name, String email, Long phoneNumber, boolean tookAnAnimal) {
+        this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.tookAnAnimal = tookAnAnimal;
     }
 
-    public PetOwner(Long telegramId, String firstName, String lastName, String email, Long phoneNumber, boolean tookAnAnimal) {
+    public PetOwner(Long telegramId, String name, String email, Long phoneNumber, boolean tookAnAnimal) {
         this.telegramId = telegramId;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.tookAnAnimal = tookAnAnimal;
+    }
+
+    @Override
+    public String toString() {
+        return "PetOwner{" +
+                "id=" + id +
+                ", telegramId=" + telegramId +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber=" + phoneNumber +
+                ", tookAnAnimal=" + tookAnAnimal +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PetOwner petOwner = (PetOwner) o;
+        return tookAnAnimal == petOwner.tookAnAnimal && Objects.equals(id, petOwner.id) && Objects.equals(telegramId, petOwner.telegramId) && Objects.equals(name, petOwner.name) && Objects.equals(email, petOwner.email) && Objects.equals(phoneNumber, petOwner.phoneNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, telegramId, name, email, phoneNumber, tookAnAnimal);
     }
 
     public PetOwner(){}
@@ -105,28 +130,11 @@ public class PetOwner {
         this.tookAnAnimal = tookAnAnimal;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PetOwner petOwner = (PetOwner) o;
-        return tookAnAnimal == petOwner.tookAnAnimal && Objects.equals(telegramId, petOwner.telegramId) && Objects.equals(firstName, petOwner.firstName) && Objects.equals(lastName, petOwner.lastName) && Objects.equals(email, petOwner.email) && Objects.equals(phoneNumber, petOwner.phoneNumber);
+    public Long getId() {
+        return id;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(telegramId, firstName, lastName, email, phoneNumber, tookAnAnimal);
-    }
-
-    @Override
-    public String toString() {
-        return "PetOwner{" +
-                "telegramId=" + telegramId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber=" + phoneNumber +
-                ", tookAnAnimal=" + tookAnAnimal +
-                '}';
+    public void setId(Long id) {
+        this.id = id;
     }
 }
