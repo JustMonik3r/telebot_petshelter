@@ -1,12 +1,13 @@
 package pro.sky.telebotpetshelter.service;
 
+import com.pengrad.telegrambot.model.Update;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.crossstore.ChangeSetPersister;
+//import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import pro.sky.telebotpetshelter.entity.PetOwner;
-import pro.sky.telebotpetshelter.entity.animals.Cat;
-import pro.sky.telebotpetshelter.exceptions.NotFoundException;
+//import pro.sky.telebotpetshelter.entity.animals.Cat;
+//import pro.sky.telebotpetshelter.exceptions.NotFoundException;
 import pro.sky.telebotpetshelter.exceptions.OwnerNotFoundException;
 import pro.sky.telebotpetshelter.repository.PetOwnerRepository;
 
@@ -24,8 +25,8 @@ public class PetOwnerServiceImpl implements PetOwnerService {
     }
 
     @Override
-    public PetOwner createOwner(PetOwner petOwner) {
-        logger.info("Был вызван метод createOwner");
+    public PetOwner addOwner(PetOwner petOwner) {
+        logger.info("Был вызван метод addOwner");
         return petOwnerRepository.save(petOwner);
     }
 
@@ -37,6 +38,8 @@ public class PetOwnerServiceImpl implements PetOwnerService {
             throw new OwnerNotFoundException(String.format("Owner [%s] not found", id));
         }
         return petOwner.get();
+//        return petOwnerRepository.findById(id).get();
+
     }
 
     @Override
@@ -64,5 +67,24 @@ public class PetOwnerServiceImpl implements PetOwnerService {
     public void deleteOwner(Long id) {
         logger.info("Был вызван метод deleteOwner");
         petOwnerRepository.deleteById(id);
+    }
+
+//    @Override
+//    public void registerUser(Update update) {
+//        Long chatId = update.message().chat().id();
+//        PetOwner petOwner = new PetOwner();
+//        petOwner.setTelegramId(chatId);
+//        petOwner.setFirstName(update.message().chat().firstName());
+//        petOwnerRepository.save(petOwner);
+//    }
+//
+//    @Override
+//    public boolean newUser(Update update) {
+//        return !(petOwnerRepository.existsById(update.message().chat().id()));
+//    }
+
+    @Override
+    public boolean existsById(Long id) {
+        return petOwnerRepository.existsById(id);
     }
 }
