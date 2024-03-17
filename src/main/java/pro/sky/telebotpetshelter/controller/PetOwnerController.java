@@ -1,6 +1,8 @@
 package pro.sky.telebotpetshelter.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,7 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/owner")
+@Tag(name = "Усыновители животных", description = "CRUD-методы для работы с усыновителями животных")
 public class PetOwnerController {
     public PetOwnerServiceImpl petOwnerService;
 
@@ -20,13 +23,33 @@ public class PetOwnerController {
     }
 
     @PostMapping
-    public ResponseEntity<PetOwner> addOwner(@Parameter(name = "Объект пользователя") @RequestBody PetOwner petOwner) {
-        return ResponseEntity.ok(petOwnerService.addOwner(petOwner));
+    @Operation(summary = "Добавить усыновителя животного")
+    public ResponseEntity<PetOwner> addOwner(
+            //       @Parameter(name = "Объект пользователя") @RequestBody PetOwner petOwner)
+            @RequestParam  @Parameter(description = "id усыновителя") long telegramId,
+            @RequestParam(required = false) @Parameter(description = "Имя") String firstName,
+            @RequestParam(required = false)@Parameter(description = "Фамилия") String lastName,
+            @RequestParam(required = false) @Parameter(description = "email") String email,
+            @RequestParam(required = false) @Parameter(description = "Телефон") Long phoneNumber,
+            @RequestParam(required = false) @Parameter(description = "Забрал животного или ещё нет") Boolean tookAnAnimal)
+    {
+        return ResponseEntity.ok(petOwnerService.addOwner(new PetOwner(telegramId, firstName, lastName, email, phoneNumber, tookAnAnimal)));
+//        return ResponseEntity.ok(petOwnerService.addOwner(petOwner));
     }
 
     @PutMapping
-    public ResponseEntity<PetOwner> updateOwnerInfo(@Parameter(name = "Объект пользователя") @org.springframework.web.bind.annotation.RequestBody PetOwner petOwner) {
-        return ResponseEntity.ok(petOwnerService.updateOwner(petOwner));
+    @Operation(summary = "Внести изменения в данные усыновителя")
+    public ResponseEntity<PetOwner> updateOwnerInfo(
+//            @Parameter(name = "Объект пользователя") @org.springframework.web.bind.annotation.RequestBody PetOwner petOwner) {
+            @RequestParam @Parameter(description = "id усыновителя") long telegramId,
+            @RequestParam(required = false) @Parameter(description = "Имя") String firstName,
+            @RequestParam(required = false) @Parameter(description = "Фамилия") String lastName,
+            @RequestParam(required = false) @Parameter(description = "email") String email,
+            @RequestParam(required = false) @Parameter(description = "Телефон") Long phoneNumber,
+            @RequestParam(required = false) @Parameter(description = "Забрал животного или ещё нет") Boolean tookAnAnimal)
+    {
+                return ResponseEntity.ok(petOwnerService.updateOwner(new PetOwner(telegramId, firstName, lastName, email, phoneNumber, tookAnAnimal)));
+//        return ResponseEntity.ok(petOwnerService.updateOwner(petOwner));
     }
 
     @GetMapping("/{id}")

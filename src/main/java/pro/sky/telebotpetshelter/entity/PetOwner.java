@@ -60,6 +60,25 @@ public class PetOwner {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+    //Nik добавил конструктор без ID
+
+    public PetOwner(String firstName, String lastName, String email, Long phoneNumber, boolean tookAnAnimal) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.tookAnAnimal = tookAnAnimal;
+    }
+
+    public PetOwner(Long telegramId, String firstName, String lastName, String email, Long phoneNumber, boolean tookAnAnimal) {
+        this.telegramId = telegramId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.tookAnAnimal = tookAnAnimal;
+    }
+
     public PetOwner(){}
 
     public String getEmail() {
