@@ -1,12 +1,11 @@
 package pro.sky.telebotpetshelter.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.Type;
 
 import java.time.LocalDate;
 import java.util.Objects;
-
-
-
 @Entity
 @Table(name = "report")
 public class Report {
@@ -23,12 +22,16 @@ public class Report {
     @Column(name = "report_text_under_photo")
     private String reportTextUnderPhoto;
 
-    public Report() {
+    public Report(long id, long chatId, String photo, LocalDate date, String reportTextUnderPhoto) {
         this.id = id;
         this.chatId = chatId;
         this.photo = photo;
         this.date = date;
         this.reportTextUnderPhoto = reportTextUnderPhoto;
+    }
+
+    public Report() {
+
     }
 
     public long getId() {

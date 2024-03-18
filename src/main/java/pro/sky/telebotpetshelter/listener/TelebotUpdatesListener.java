@@ -8,8 +8,12 @@ import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pro.sky.telebotpetshelter.repository.DailyReportRepository;
+import pro.sky.telebotpetshelter.repository.PetOwnerRepository;
+import pro.sky.telebotpetshelter.repository.UserNameRepository;
+import pro.sky.telebotpetshelter.service.*;
 
 import java.util.List;
 
@@ -17,14 +21,26 @@ import java.util.List;
 public class TelebotUpdatesListener implements UpdatesListener {
     private Logger logger = LoggerFactory.getLogger(TelebotUpdatesListener.class);
 
+    @Value("${telegram.bot.token}")
+    TelegramBot bot = new TelegramBot("${telegram.bot.token}");
+
     @Autowired
     private TelegramBot telegramBot;
+    @Autowired
+    private MenuService menuService;
+    @Autowired
+    private UserNameService userNameService;
+    private UserNameRepository userNameRepository;
 
-    private final DailyReportRepository notificationTaskRepository;
+    @Autowired
+    private PetOwnerRepository petOwnerRepository;
+    @Autowired
+    private ButtonReactionService buttonReactionService;
+    @Autowired
+    private UpdateTextHandlerImpl updateTextHandler;
 
-    public TelebotUpdatesListener(DailyReportRepository notificationTaskRepository) {
-        this.notificationTaskRepository = notificationTaskRepository;
-    }
+    @Autowired
+    private ReportServiceImpl reportServiceImpl;
 
     @PostConstruct
     public void init() {
@@ -33,15 +49,26 @@ public class TelebotUpdatesListener implements UpdatesListener {
 
     @Override
     public int process(List<Update> updates) {
-        updates.forEach(update -> {
-            //Проверяем, получена ли команда /start и отправляем ответное сообщение
-            logger.info("Processing update: {}", update);
-            Long chatId = update.message().chat().id();
-            if (update.message().text().equals("/start")) {
-                SendMessage message = new SendMessage(chatId, String.format("Привет, %s! Выбери интересующий тебя пункт меню", update.message().from().firstName()));
-                telegramBot.execute(message);
-            }
-        });
+
+        try {
+            updates.forEach(update -> {
+                logger.info("Processing update: {}", update);
+//            Объявил переменные для имени и номера чата
+                if (update.callbackQuery() != null) {
+                    buttonReactionService.buttonReaction(update.callbackQuery());
+                } else if (update.message().text() != null) {
+                    updateTextHandler.handleStartMessage(update);
+                } else if (update.message().photo() != null || update.message().caption() != null) {
+                    reportServiceImpl.postReport(update);
+                }
+
+
+            });
+        } catch (
+                Exception e) {
+            logger.error(e.getMessage(), e);
+        }
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
     }
+
 }

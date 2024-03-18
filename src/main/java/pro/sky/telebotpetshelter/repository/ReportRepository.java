@@ -6,15 +6,8 @@ import org.springframework.stereotype.Repository;
 import pro.sky.telebotpetshelter.entity.Report;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.stream.Collectors;
-
-/**
- * Создаем репозиторий в БД для хранения полученных отчетов
- */
 @Repository
-public interface ReportRepository extends JpaRepository<Report,Long> {
+public interface ReportRepository  extends JpaRepository<Report,Long> {
     @Query(value = "select sent_date from_report where chat_id=?", nativeQuery = true)
     LocalDate getDateByChatId(Long chatId);
 

@@ -6,10 +6,8 @@ import pro.sky.telebotpetshelter.repository.VolunteerRepository;
 
 import java.util.Collection;
 import java.util.Optional;
-
 @Service
 public class VolunteerServiceImpl implements VolunteerService {
-
     private final VolunteerRepository volunteerRepository;
 
     public VolunteerServiceImpl(VolunteerRepository volunteerRepository) {
