@@ -77,7 +77,7 @@ public class ShelterServiceImpl_Cat implements ShelterService<CatShelter, Cat> {
 
     @Override
     public String getContacts() {
-        return catShelterRepository.getLocation() + catShelterRepository.getTimetable();
+        return catShelterRepository.getLocation() + " " + catShelterRepository.getTimetable();
     }
 
     public String getLocation() {

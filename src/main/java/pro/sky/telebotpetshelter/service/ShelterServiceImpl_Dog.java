@@ -77,7 +77,7 @@ public class ShelterServiceImpl_Dog implements ShelterService<DogShelter, Dog> {
 
     @Override
     public String getContacts() {
-        return dogShelterRepository.getLocation() + dogShelterRepository.getTimetable();
+        return dogShelterRepository.getLocation() + " " + dogShelterRepository.getTimetable();
     }
 
     public String getLocation() {
