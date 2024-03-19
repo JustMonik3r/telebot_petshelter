@@ -99,17 +99,6 @@ public class ButtonReactionService {
 //                    takeAnimalService.getInfoAboutAllDogs(chatId);
 //                    return menuService.DogNamesMenu(chatId);
 //                }
-//            case GARFIELD, OSCAR, VASYA, TOM, BARSIK, SAMMY:
-//                if (animalAdopterService.existsById(chatId)) {
-//                    takeAnimalService.addTookAnimalField(chatId);
-//                    return messageSender.sendMessage(chatId, "Спасибо за ответ. Наш волонтёр свяжется с вами в ближайшее время, " +
-//                            "чтобы обсудить, когда вы сможете забрать питомца и заполнить документы");
-//                } else
-//                    return messageSender.sendMessage(chatId, "Извините, у нас ещё нет ваших данных, чтобы наш волонтёр смог с вами " +
-//                            "связаться и уточнить информацию. Введите пожалуйста ваш номер, имя и электронную почту и наш волонтёр свяжется " +
-//                            "с вами в ближайшее время. Порядок написания данных не важен.");
-//            case NO:
-//            return messageSender.sendMessage(chatId, "Спасибо за ответ. Будем вас ждать позже");
             default:
                 return messageSender.sendMessage(chatId, "Обратитесь к волонтеру по телефону: +79012345678");
         }

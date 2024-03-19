@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 public class PetOwnerServiceImpl implements PetOwnerService {
 
-    private PetOwnerRepository petOwnerRepository;
+    private final PetOwnerRepository petOwnerRepository;
     private final Logger logger = LoggerFactory.getLogger(PetOwnerService.class);
 
     public PetOwnerServiceImpl(PetOwnerRepository petOwnerRepository) {
@@ -21,8 +21,8 @@ public class PetOwnerServiceImpl implements PetOwnerService {
     }
 
     @Override
-    public PetOwner createOwner(PetOwner petOwner) {
-        logger.info("Был вызван метод createOwner");
+    public PetOwner addOwner(PetOwner petOwner) {
+        logger.info("Был вызван метод addOwner");
         return petOwnerRepository.save(petOwner);
     }
 
@@ -34,11 +34,7 @@ public class PetOwnerServiceImpl implements PetOwnerService {
             throw new OwnerNotFoundException(String.format("Owner [%s] not found", id));
         }
         return petOwner.get();
-    }
-
-    @Override
-    public boolean existsById(Long id) {
-        return petOwnerRepository.existsById(id);
+//        return petOwnerRepository.findById(id).get();
     }
 
     @Override
@@ -68,4 +64,22 @@ public class PetOwnerServiceImpl implements PetOwnerService {
         petOwnerRepository.deleteById(id);
     }
 
+//    @Override
+//    public void registerUser(Update update) {
+//        Long chatId = update.message().chat().id();
+//        PetOwner petOwner = new PetOwner();
+//        petOwner.setTelegramId(chatId);
+//        petOwner.setFirstName(update.message().chat().firstName());
+//        petOwnerRepository.save(petOwner);
+//    }
+//
+//    @Override
+//    public boolean newUser(Update update) {
+//        return !(petOwnerRepository.existsById(update.message().chat().id()));
+//    }
+
+    @Override
+    public boolean existsById(Long id) {
+        return petOwnerRepository.existsById(id);
+    }
 }

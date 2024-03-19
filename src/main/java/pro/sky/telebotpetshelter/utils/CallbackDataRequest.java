@@ -1,14 +1,6 @@
 package pro.sky.telebotpetshelter.utils;
 
 public enum CallbackDataRequest {
-    YES("Забираю", "YES"),
-    NO("Пока не готов", "No"),
-/*    OSCAR("Оскар", "OSCAR"),
-    GARFIELD("Гарфилд", "GARFIELD"),
-    VASYA("Вася", "VASYA"),
-    TOM("Том", "TOM"),
-    SAMMY("Сэмми", "SAMMY"),
-    BARSIK("Барсик", "BARSIK"),*/
     CAT("Приют для котов", "CAT"),
     DOG("Приют для собак", "DOG"),
     TAKE_CAT("Хочу взять кошечку", "TAKE_CAT"),

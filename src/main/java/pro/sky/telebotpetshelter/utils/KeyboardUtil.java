@@ -6,10 +6,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 @Service
 public class KeyboardUtil {
-
     public InlineKeyboardMarkup setKeyboard(CallbackDataRequest... strings) { //В значениях strings только те константы, которые есть в enum
         List<InlineKeyboardButton> keyboardButtons = getKeyboardButtons(strings);
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();

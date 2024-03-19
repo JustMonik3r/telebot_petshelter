@@ -1,19 +1,19 @@
 package pro.sky.telebotpetshelter.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.http.ResponseEntity;
-import pro.sky.telebotpetshelter.entity.Report;
-import pro.sky.telebotpetshelter.service.ReportServiceImpl;
-
 import org.springframework.web.bind.annotation.*;
+import pro.sky.telebotpetshelter.entity.Report;
+import pro.sky.telebotpetshelter.service.ReportService;
 
 @RestController
 @RequestMapping("/reports")
 public class ReportController {
-    private final ReportServiceImpl reportService;
+    private final ReportService reportService;
 
-    public ReportController(ReportServiceImpl reportService) {
+    public ReportController(ReportService reportService) {
         this.reportService = reportService;
     }
 

@@ -35,7 +35,7 @@ class PetOwnerServiceImplTest {
         when(petOwnerRepository.save(petOwner)).thenReturn(petOwner);
 
         // Вызываем метод createOwner и сохраняем результат
-        PetOwner createdOwner = petOwnerService.createOwner(petOwner);
+        PetOwner createdOwner = petOwnerService.addOwner(petOwner);
 
         // Проверяем, что метод save был вызван один раз
         verify(petOwnerRepository, times(1)).save(petOwner);

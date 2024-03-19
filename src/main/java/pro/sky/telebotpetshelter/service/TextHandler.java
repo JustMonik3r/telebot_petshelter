@@ -43,7 +43,7 @@ public class TextHandler {
         //petOwner.setFirstName(getNameFromMessage(messageText));
         //petOwner.setLastName(getEmailFromMessage(messageText));
         if (!(petOwnerService.existsById(update.message().chat().id()))) {
-            petOwnerService.createOwner(petOwner);
+            petOwnerService.addOwner(petOwner);
         } else {
             petOwnerService.updateOwner(petOwner);
         }
