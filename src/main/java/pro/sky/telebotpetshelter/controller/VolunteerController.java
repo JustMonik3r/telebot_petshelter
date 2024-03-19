@@ -2,6 +2,7 @@ package pro.sky.telebotpetshelter.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pro.sky.telebotpetshelter.entity.Report;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/volunteer")
+@Tag(name = "Волонтеры", description = "CRUD-методы для работы с волонтерами")
 public class VolunteerController {
 
     private final VolunteerService volunteerService;
@@ -38,7 +40,7 @@ public class VolunteerController {
     }
 
     @Operation(summary = "Удаление волонтера по id", description = "Удаление волонтера по id")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{telegramId}")
     public ResponseEntity deleteVolunteer(@Parameter(description = "Id волонтера") @PathVariable Long telegramId) {
         volunteerService.deleteVolunteer(telegramId);
         return ResponseEntity.ok().build();

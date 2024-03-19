@@ -18,6 +18,7 @@ import pro.sky.telebotpetshelter.entity.PetOwner;
 import pro.sky.telebotpetshelter.entity.Report;
 import pro.sky.telebotpetshelter.entity.Volunteer;
 import pro.sky.telebotpetshelter.exceptions.NotFoundException;
+import pro.sky.telebotpetshelter.exceptions.ReportNotFoundException;
 import pro.sky.telebotpetshelter.repository.ReportRepository;
 
 import java.io.IOException;
@@ -30,21 +31,14 @@ import java.util.UUID;
 @Service
 public class ReportServiceImpl implements ReportService {
 
-    private final ReportRepository reportRepository;
-    private PetOwnerServiceImpl petOwnerServiceImpl;
-
-    private PetOwner petOwner;
+    private  ReportRepository reportRepository;
+    private PetOwnerService petOwnerService;
     private  VolunteerService volunteerService;
+
     public ReportServiceImpl(ReportRepository reportRepository) {
         this.reportRepository = reportRepository;
-        this.petOwnerRepository = petOwnerRepository;
-        this.volunteerService = volunteerService;
     }
-    /**
-     * Метод для получения отчета по id из БД
-     * @param id идентификатор отчета
-     * @return найденный отчет
-     */
+
     public Report findById(Long id) {
         Optional<Report> report = reportRepository.findById(id);
         if (report.isEmpty()) {
@@ -53,18 +47,10 @@ public class ReportServiceImpl implements ReportService {
         return report.get();
     }
 
-    /**
-     * Метод для получения всех отчетов из БД
-     * @return список найденных отчетов
-     */
     public Iterable<Report> findAll() {
         return reportRepository.findAll();
     }
 
-    /**
-     * Метод для удаления отчета из БД по id
-     * @param id идентификатор отчета
-     */
     public void delete(Long id) {
         reportRepository.deleteById(id);
     }
@@ -73,18 +59,15 @@ public class ReportServiceImpl implements ReportService {
     TelegramBot bot = new TelegramBot("${telegram.bot.token}");
 
     /**
-     * The method receives the update and checks if the user had sent both a photo and the caption below.
-     * If not bot asks to send the photo both with the caption.
+     * Этот метод проверяет, отправил ли пользователь и фотографию, и описание ниже.
+     * Если нет, бот просит отправить фото с описанием.
      * <br>
-     * When photo is provided {@link PhotoSize} writes down the size of the photo. {@link Path} writes the path of the photo.
-     * <br>
-     * Trigger every day at 12a.m.
-     * The report is being saved to the DB.
+     * При предоставлении фотографии {@link PhotoSize} записывает размер фотографии. {@link Path} записывает путь к фотографии.
+     * Отчет будет сохранен в БД.
      * @throws IOException
      *
      * @param update
      */
-    @Scheduled(cron = "0 0 12 * * ?")
     public SendResponse postReport(Update update) {
         Long chatId = update.message().chat().id();
         Report Report = new Report();
@@ -117,80 +100,66 @@ public class ReportServiceImpl implements ReportService {
         return response;
     }
 
+    /**
+     * Этот метод ежедневно напоминает об отправке отчета
+     * Если владелец не отправлял отчет два дня, бот отправляет уведомление владельцу и волонтеру для связи с первым
+
+     * По завершению испытательного срока, бот либо поздравляет владельца, либо уведомляет его о дополнительном испытательном сроке,
+     * либо уведомляет о непрохождении испытания.
+     *
+     * @return
+     */
     @Scheduled(cron = "0 0 12 * * ?")
     private SendResponse sendWarning() {
         LocalDate todayDate = LocalDate.now();
         LocalDate lastReportDate;
-        LocalDate firstReportDate;
-        LocalDate oneDayFromLastReportDate;
         LocalDate twoDaysFromLastReportDate;
-        LocalDate threeDaysFromLastReportDate;
         LocalDate probationPeriod;
-        LocalDate additionalProbationPeriod;
 
-        Report lastReport = ReportRepository.getLastReportSent(petOwner.getTelegramId());
-        lastReportDate = lastReport.getDate();
-//            reportDate = ReportRepository.getDateByChatId(petOwner.getTelegramId());
-        oneDayFromLastReportDate = lastReportDate.plusDays(1);
-        twoDaysFromLastReportDate = lastReportDate.plusDays(2);
-        threeDaysFromLastReportDate = lastReportDate.plusDays(3);
+        for (PetOwner petOwner : petOwnerService.getAllOwners()) {
+            if (petOwner.isTookAnAnimal()) {
+                SendMessage messageText = new SendMessage(petOwner.getTelegramId(), "Пожалуйста, отправьте отчёт, " +
+                        "отправьте одним сообщением фотографии и описание");
+                SendResponse response = bot.execute(messageText);
+                return response;
+            }
 
+            Report lastReport = reportRepository.getLastReportSent(petOwner.getTelegramId());
+            lastReportDate = lastReport.getDate();
+            twoDaysFromLastReportDate = lastReportDate.plusDays(2);
 
-        if (threeDaysFromLastReportDate.equals(todayDate)) {
-            SendMessage messageText6 = new SendMessage(petOwner.getTelegramId(), "Вы не отпраляли" +
-                    "отчёты 3 дня!");
-            SendResponse response6 = bot.execute(messageText6);
-            return response6;
+            Optional<Volunteer> volunteer1 = volunteerService.findAnyVolunteer();
+            if (volunteer1.isPresent()) {
+                final Volunteer volunteer2 = volunteer1.get();
 
+                if (twoDaysFromLastReportDate.equals(todayDate)) {
+                    SendMessage messageText2 = new SendMessage(volunteer2.getTelegramId(),
+                            String.format("Последний отчет был принят более двух дней назад у : %s", petOwner.getTelegramId()));
+                    bot.execute(messageText2);
+                    SendMessage messageText3 = new SendMessage(petOwner.getTelegramId(),
+                            "Последний отчет был принят более двух дней назад! Пожалуйста, сдайте отчет, иначе Ваш испытательный срок будет увеличен");
+                    SendResponse response3 = bot.execute(messageText3);
+                    return response3;
+                }
+            }
 
+            Report firstReport = reportRepository.getFirstReport(petOwner.getTelegramId());
+            probationPeriod = firstReport.getDate().plusDays(30);
+            Long numberOfRecordsInTable = reportRepository.getNumberOfRecords(petOwner.getTelegramId());
+            if ((probationPeriod.equals(todayDate) && numberOfRecordsInTable == 30) || numberOfRecordsInTable >= 30) {
+                SendMessage messageText4 = new SendMessage(petOwner.getTelegramId(), "Поздравляем! " +
+                        "Вы прошли испытательный срок.");
+                SendResponse response4 = bot.execute(messageText4);
+                return response4;
+            } else if (!todayDate.equals(probationPeriod)) {
+                SendMessage messageText5 = new SendMessage(petOwner.getTelegramId(), "К сожалению, " +
+                        "вы не прошли испытательный срок. Пожалуйста, следуйте инструкциям для дальнейших шагов.");
+                SendResponse response5 = bot.execute(messageText5);
+                return response5;
+            }
         }
-
-        for (PetOwner petOwner : petOwnerServiceImlp.getAllOwners()) {
-            SendMessage messageText = new SendMessage(petOwner.getTelegramId(), "Пожалуйста, отправьте отчёт, " +
-                    "отправьте одним сообщением фотографии и описание");
-            SendResponse response = bot.execute(messageText);
-            return response;
-        }
-
-        if (oneDayFromLastReportDate.equals(todayDate)) {
-            SendMessage messageText1 = new SendMessage(petOwner.getTelegramId(), "Вы не отправили " +
-                    "отчёт за прошлый день");
-            SendResponse response1 = bot.execute(messageText1);
-            return response1;
-        }
-
-        Optional<Volunteer> volunteer = volunteerService.findAnyVolunteer();
-        if(volunteer.isPresent()) {
-            final Volunteer volunteer1 = volunteer.get();
-
-        if (twoDaysFromLastReportDate.equals(todayDate)){
-            SendMessage messageText2 = new SendMessage(volunteer1.getTelegramId(),
-                    String.format("Последний отчет был принят более двух дней назад у : %s %s." ,
-                    petOwner.getFirstName(), petOwner.getLastName()));
-
-            SendMessage messageText3 = new SendMessage(petOwner.getTelegramId(),
-                    "Последний отчет был принят более двух дней назад! Пожалуйста, сдайте отчет, иначе Ваш испытательный срок будет увеличен");
-            SendResponse response3 = bot.execute(messageText3);
-            return response3;
-        }};
-
-//            reportDate = reportRepository.getDateByChatId(petOwner.getTelegramId());
-        Report firstReport = reportRepository.getFirstReport(petOwner.getTelegramId());
-        probationPeriod = firstReport.getDate().plusDays(30);
-        Long numberOfRecordsInTable = reportRepository.getNumberOfRecords(petOwner.getTelegramId());
-        if ((probationPeriod.equals(todayDate) && numberOfRecordsInTable == 30) || numberOfRecordsInTable >= 30) {
-            SendMessage messageText4 = new SendMessage(petOwner.getTelegramId(), "Поздравляем! " +
-                    "Вы успешно прошли испытательный срок.");
-            SendResponse response4 = bot.execute(messageText4);
-            return response4;
-        } else if (!todayDate.equals(probationPeriod)) {
-            SendMessage messageText5 = new SendMessage(petOwner.getTelegramId(), "К сожалению, " +
-                    "вы не прошли испытательный срок. Пожалуйста, следуйте инструкциям для дальнейших шагов.");
-            SendResponse response5 = bot.execute(messageText5);
-            return response5;
-        }
-
         return null;
     }
 }
+
 
