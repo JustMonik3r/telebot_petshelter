@@ -12,26 +12,19 @@ public class ButtonReactionService {
     @Value("${telegram.bot.token}")
     TelegramBot bot = new TelegramBot("${telegram.bot.token}");
     private final MenuService menuService;
-    // private final CallbackDataRequest callbackDataRequest;
     private final TakeAnimalServiceImpl takeAnimalService;
     private final MessageSender messageSender;
     private final ShelterServiceImpl_Cat catShelterService;
-    private final PetOwnerServiceImpl animalAdopterService;
-
     private final ShelterServiceImpl_Dog dogShelterService;
-    private final ShelterInfoTakeAnimalImpl shelterInfoTakeAnimal;
-
     private final UpdateTextHandlerImpl updateTextHandler;
     private boolean isCat = false;
 
-    public ButtonReactionService(MenuService menuService, TakeAnimalServiceImpl takeAnimalService, MessageSender messageSender, ShelterServiceImpl_Cat catShelterService, PetOwnerServiceImpl animalAdopterService, ShelterServiceImpl_Dog dogShelterService, ShelterInfoTakeAnimalImpl shelterInfoTakeAnimal, UpdateTextHandlerImpl updateTextHandler) {
+    public ButtonReactionService(MenuService menuService, TakeAnimalServiceImpl takeAnimalService, MessageSender messageSender, ShelterServiceImpl_Cat catShelterService, ShelterServiceImpl_Dog dogShelterService, UpdateTextHandlerImpl updateTextHandler) {
         this.menuService = menuService;
         this.takeAnimalService = takeAnimalService;
         this.messageSender = messageSender;
         this.catShelterService = catShelterService;
-        this.animalAdopterService = animalAdopterService;
         this.dogShelterService = dogShelterService;
-        this.shelterInfoTakeAnimal = shelterInfoTakeAnimal;
         this.updateTextHandler = updateTextHandler;
     }
 
@@ -91,20 +84,13 @@ public class ButtonReactionService {
                 return messageSender.sendMessage(chatId, catShelterService.getRecForProvenHandlers(chatId));
             case REFUSE_REASONS:
                 return isCat ? messageSender.sendMessage(chatId, catShelterService.getReasonsForRefusal(chatId)) : messageSender.sendMessage(chatId, dogShelterService.getReasonsForRefusal(chatId));
-
             case REPORT_ANIMAL:
                 return messageSender.sendMessage(chatId, "Чтобы бот принял ваш отчет нужно прислать фотографию питомца, и в описании написать " +
                         "рацион животного, общее самочувствие и привыкание к новому месту, а также изменение в поведении. Напишите всё одним сообщением.");
-//            case TAKE_CAT:
-//                if (isCat) {
-//                    takeAnimalService.getInfoAboutAllCats(chatId);
-//                    return menuService.CatNamesMenu(chatId);
-//                }
-//            case TAKE_DOG:
-//                if (!isCat) {
-//                    takeAnimalService.getInfoAboutAllDogs(chatId);
-//                    return menuService.DogNamesMenu(chatId);
-//                }
+            case TAKE_CAT:
+                    return takeAnimalService.getInfoAboutAllCats(chatId);
+            case TAKE_DOG:
+                    return takeAnimalService.getInfoAboutAllDogs(chatId);
             default:
                 return messageSender.sendMessage(chatId, "Обратитесь к волонтеру по телефону: +79012345678");
         }
