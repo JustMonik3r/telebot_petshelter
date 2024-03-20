@@ -26,7 +26,7 @@ public enum CallbackDataRequest {
     CYNOLOGISTS("Рекомендованные кинологи", "CYNOLOGISTS"),
     FELINOLOGIST_ADVICE("Рекомендации по уходу от фелинологов", "FELINOLOGIST_ADVICE"),
     FELINOLOGISTS("Рекомендованные фелинологи", "FELINOLOGISTS"),
-    REFUSE_REASONS("Причины для отказа в усыновлении собаки", "REFUSE_REASONS");
+    REFUSE_REASONS("Причины для отказа выдачи животного", "REFUSE_REASONS");
 
     private final String text;
     private final String callbackData;
