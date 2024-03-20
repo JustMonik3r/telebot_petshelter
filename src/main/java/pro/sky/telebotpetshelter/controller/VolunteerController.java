@@ -2,15 +2,20 @@ package pro.sky.telebotpetshelter.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pro.sky.telebotpetshelter.entity.Report;
 import pro.sky.telebotpetshelter.entity.Volunteer;
+import pro.sky.telebotpetshelter.service.ReportService;
 import pro.sky.telebotpetshelter.service.VolunteerService;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/volunteer")
+@Tag(name = "Волонтеры", description = "CRUD-методы для работы с волонтерами")
 public class VolunteerController {
 
     private final VolunteerService volunteerService;

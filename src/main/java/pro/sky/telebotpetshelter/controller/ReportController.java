@@ -3,6 +3,7 @@ package pro.sky.telebotpetshelter.controller;
 import io.swagger.v3.oas.annotations.Operation;
 
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pro.sky.telebotpetshelter.entity.Report;
@@ -10,6 +11,7 @@ import pro.sky.telebotpetshelter.service.ReportService;
 
 @RestController
 @RequestMapping("/reports")
+@Tag(name = "Отчет", description = "CRUD-методы для работы с отчетом")
 public class ReportController {
     private final ReportService reportService;
 
