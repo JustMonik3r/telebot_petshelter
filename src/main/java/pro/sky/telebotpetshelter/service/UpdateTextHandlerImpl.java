@@ -31,7 +31,7 @@ public class UpdateTextHandlerImpl {
         if ("/start".equals(userText)) {
             menuService.getStartMenuShelter(update);
         } else if (update.message().text().matches("(?=.*\\+7\\d{10})(?=.*[а-яА-ЯёЁ]+)(?=.*\\w+@\\w+\\.\\w{2,}).*")) {
-            registerAdopter(update);
+            registerPetOwner(update);
             SendMessage message = new SendMessage(chatId, "Ваши данные успешно сохранены. Наш волонтёр свяжется с вами в ближайшее время");
             telegramBot.execute(message);
             return message;
@@ -49,15 +49,14 @@ public class UpdateTextHandlerImpl {
      *
      * @param update
      */
-    public void registerAdopter(Update update) {
+    public void registerPetOwner(Update update) {
         if (!(petOwnerService.existsById(update.message().chat().id()))) {
             String messageText = update.message().text();
-            PetOwner petOwner = new PetOwner();
-            petOwner.setTelegramId(update.message().chat().id());
+            PetOwner petOwner = new PetOwner(update.message().chat().id());
+            //petOwner.setTelegramId(update.message().chat().id());
             petOwner.setName(getNameFromMessage(messageText));
             petOwner.setPhoneNumber(getPhoneFromMessage(messageText));
             petOwner.setEmail(getEmailFromMessage(messageText));
-
             petOwnerService.addOwner(petOwner);
         }
     }

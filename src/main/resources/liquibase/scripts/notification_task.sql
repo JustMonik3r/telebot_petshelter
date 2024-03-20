@@ -18,17 +18,6 @@
       vaccinations integer
   );
 
-  create table pet_owners
-  (
-    telegram_id bigint not null primary key,
-    id bigserial not null,
-    first_name varchar(255) not null,
-    last_name varchar(255) not null,
-    phone_number bigint not null,
-    email varchar(255) not null,
-    took_animal boolean
-  );
-
    create table cat_shelter
    (
        id            bigserial not null primary key,

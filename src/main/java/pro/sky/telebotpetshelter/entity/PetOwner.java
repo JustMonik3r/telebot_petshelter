@@ -1,9 +1,6 @@
 package pro.sky.telebotpetshelter.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
@@ -12,6 +9,7 @@ import java.util.Objects;
 public class PetOwner {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -20,7 +18,6 @@ public class PetOwner {
 
     @Column(name = "name")
     private String name;
-
 
     @Column(name = "e-mail")
     private String email;
@@ -40,7 +37,9 @@ public class PetOwner {
         this.tookAnAnimal = tookAnAnimal;
     }
 
-
+    public PetOwner(Long id) {
+        this.telegramId = id;
+    }
     public Long getTelegramId() {
         return telegramId;
     }
