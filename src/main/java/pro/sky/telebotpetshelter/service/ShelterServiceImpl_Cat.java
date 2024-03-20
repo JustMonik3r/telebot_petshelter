@@ -97,29 +97,38 @@ public class ShelterServiceImpl_Cat implements ShelterService<CatShelter, Cat> {
     }
 
     public String getRulesForMeeting(Long chatId) {
+        return catShelterRepository.getRulesForMeeting();
     }
 
     public String getDocumentList(Long chatId) {
+        return catShelterRepository.getDocumentList();
     }
 
     public String getRecForTransport(Long chatId) {
+        return catShelterRepository.getRecForTransport();
     }
 
     public String getHomeRecommendForSmallPet(Long chatId) {
+        return catShelterRepository.getHomeRecommendForSmallPet();
     }
 
     public String getHomeRecommendForBigPet(Long chatId) {
+        return catShelterRepository.getHomeRecommendForBigPet();
     }
 
     public String getHomeRecommendForDisable(Long chatId) {
+        return catShelterRepository.getHomeRecommendForDisable();
     }
 
     public String getHandlerTips(Long chatId) {
+        return catShelterRepository.getHandlerTips();
     }
 
     public String getRecForProvenHandlers(Long chatId) {
+        return catShelterRepository.getRecForProvenHandlers();
     }
 
     public String getReasonsForRefusal(Long chatId) {
+        return catShelterRepository.getReasonsForRefusal();
     }
 }

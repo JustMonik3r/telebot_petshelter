@@ -96,29 +96,38 @@ public class ShelterServiceImpl_Dog implements ShelterService<DogShelter, Dog> {
     }
 
     public String getHandlerTips(Long chatId) {
+        return dogShelterRepository.getHandlerTips();
     }
 
     public String getRecForProvenHandlers(Long chatId) {
+        return dogShelterRepository.getRecForProvenHandlers();
     }
 
     public String getRulesForMeeting(Long chatId) {
+        return dogShelterRepository.getRulesForMeeting();
     }
 
     public String getDocumentList(Long chatId) {
+        return dogShelterRepository.getDocumentList();
     }
 
     public String getRecForTransport(Long chatId) {
+        return dogShelterRepository.getRecForTransport();
     }
 
     public String getHomeRecommendForSmallPet(Long chatId) {
+        return dogShelterRepository.getHomeRecommendForSmallPet();
     }
 
     public String getHomeRecommendForBigPet(Long chatId) {
+        return dogShelterRepository.getHomeRecommendForBigPet();
     }
 
     public String getHomeRecommendForDisable(Long chatId) {
+        return dogShelterRepository.getHomeRecommendForDisable();
     }
 
     public String getReasonsForRefusal(Long chatId) {
+        return dogShelterRepository.getReasonsForRefusal();
     }
 }
