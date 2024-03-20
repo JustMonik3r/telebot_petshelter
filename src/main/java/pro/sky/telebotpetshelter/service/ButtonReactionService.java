@@ -68,28 +68,30 @@ public class ButtonReactionService {
                 return updateTextHandler.getVolunteerHelp(chatId);
             case ROLLBACK:
                 return menuService.getCatAndDogButtonsOnly(chatId);
-//            case SHELTER_RULES_BEFORE_MEETING_ANIMAL:
-//                return petShelterInfo.getRulesForMeeting(chatId);
-//            case DOCUMENTS_TO_TAKE_ANIMAL:
-//                return petShelterInfo.getDocumentList(chatId);
-//            case TRANSPORTATION_ADVICE:
-//                return petShelterInfo.getRecForTransport(chatId);
-//            case HOUSE_RULES_FOR_SMALL_ANIMAL:
-//                return petShelterInfo.getHomeRecommendForSmallPet(chatId);
-//            case HOUSE_RULES_FOR_ADULT_ANIMAL:
-//                return petShelterInfo.getHomeRecommendForBigPet(chatId);
-//            case HOUSE_RULES_FOR_ANIMAL_WITH_DISABILITY:
-//                return petShelterInfo.getHomeRecommendForDisable(chatId);
-//            case CYNOLOGIST_ADVICE:
-//                return petShelterInfo.getDogHandlerTips(chatId);
-//            case CYNOLOGISTS:
-//                return petShelterInfo.getRecForProvenDogHandlers(chatId);
-//            case FELINOLOGIST_ADVICE:
-//                return petShelterInfo.getCatHandlerTips(chatId);
-//            case FELINOLOGISTS:
-//                return petShelterInfo.getRecForProvenCatHandlers(chatId);
-//            case REFUSE_REASONS:
-//                return petShelterInfo.getReasonsForRefusal(chatId);
+
+            case SHELTER_RULES_BEFORE_MEETING_ANIMAL:
+                return isCat ? messageSender.sendMessage(chatId, catShelterService.getRulesForMeeting(chatId)) : messageSender.sendMessage(chatId, dogShelterService.getRulesForMeeting(chatId));
+            case DOCUMENTS_TO_TAKE_ANIMAL:
+                return isCat ? messageSender.sendMessage(chatId, catShelterService.getDocumentList(chatId)) : messageSender.sendMessage(chatId, dogShelterService.getDocumentList(chatId));
+            case TRANSPORTATION_ADVICE:
+                return isCat ? messageSender.sendMessage(chatId, catShelterService.getRecForTransport(chatId)) : messageSender.sendMessage(chatId, dogShelterService.getRecForTransport(chatId));
+            case HOUSE_RULES_FOR_SMALL_ANIMAL:
+                return isCat ? messageSender.sendMessage(chatId, catShelterService.getHomeRecommendForSmallPet(chatId)) : messageSender.sendMessage(chatId, dogShelterService.getHomeRecommendForSmallPet(chatId));
+            case HOUSE_RULES_FOR_ADULT_ANIMAL:
+                return isCat ? messageSender.sendMessage(chatId, catShelterService.getHomeRecommendForBigPet(chatId)) : messageSender.sendMessage(chatId, dogShelterService.getHomeRecommendForBigPet(chatId));
+            case HOUSE_RULES_FOR_ANIMAL_WITH_DISABILITY:
+                return isCat ? messageSender.sendMessage(chatId, catShelterService.getHomeRecommendForDisable(chatId)) : messageSender.sendMessage(chatId, dogShelterService.getHomeRecommendForDisable(chatId));
+            case CYNOLOGIST_ADVICE:
+                return messageSender.sendMessage(chatId, dogShelterService.getHandlerTips(chatId));
+            case CYNOLOGISTS:
+                return messageSender.sendMessage(chatId, dogShelterService.getRecForProvenHandlers(chatId));
+            case FELINOLOGIST_ADVICE:
+                return messageSender.sendMessage(chatId, catShelterService.getHandlerTips(chatId));
+            case FELINOLOGISTS:
+                return messageSender.sendMessage(chatId, catShelterService.getRecForProvenHandlers(chatId));
+            case REFUSE_REASONS:
+                return isCat ? messageSender.sendMessage(chatId, catShelterService.getReasonsForRefusal(chatId)) : messageSender.sendMessage(chatId, dogShelterService.getReasonsForRefusal(chatId));
+
             case REPORT_ANIMAL:
                 return messageSender.sendMessage(chatId, "Чтобы бот принял ваш отчет нужно прислать фотографию питомца, и в описании написать " +
                         "рацион животного, общее самочувствие и привыкание к новому месту, а также изменение в поведении. Напишите всё одним сообщением.");

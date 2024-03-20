@@ -95,4 +95,31 @@ public class ShelterServiceImpl_Cat implements ShelterService<CatShelter, Cat> {
     public String getSafetyAdvice() {
         return catShelterRepository.getSafetyMeasures();
     }
+
+    public String getRulesForMeeting(Long chatId) {
+    }
+
+    public String getDocumentList(Long chatId) {
+    }
+
+    public String getRecForTransport(Long chatId) {
+    }
+
+    public String getHomeRecommendForSmallPet(Long chatId) {
+    }
+
+    public String getHomeRecommendForBigPet(Long chatId) {
+    }
+
+    public String getHomeRecommendForDisable(Long chatId) {
+    }
+
+    public String getHandlerTips(Long chatId) {
+    }
+
+    public String getRecForProvenHandlers(Long chatId) {
+    }
+
+    public String getReasonsForRefusal(Long chatId) {
+    }
 }
