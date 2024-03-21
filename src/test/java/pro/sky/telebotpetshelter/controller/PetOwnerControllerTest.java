@@ -79,20 +79,22 @@ class PetOwnerControllerTest {
 
     @Test
     void updateOwnerInfo() {
+
+
     }
 
     @Test
     void getOwnerById() throws Exception {
-//        when(petOwnerRepository.findById(any(Long.class))).thenReturn(Optional.of(petOwnerObject()));
-//
-//        mockMvc.perform(MockMvcRequestBuilders
-//                        .get("/owner/1")
-//                        .content(petOwnerJSON().toString())
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .accept(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.phoneNumber").value(phoneNumber))
-//                .andExpect(jsonPath("$.email").value(email));
+        when(petOwnerRepository.findById(any(Long.class))).thenReturn(Optional.of(petOwnerObject()));
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/owner/1")
+                        .content(petOwnerJSON().toString())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.phoneNumber").value(phoneNumber))
+                .andExpect(jsonPath("$.email").value(email));
     }
 
     @Test

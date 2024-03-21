@@ -33,7 +33,7 @@ public class PetOwnerServiceImpl implements PetOwnerService {
     @Override
     public PetOwner getOwnerById(Long id) {
         logger.info("Был вызван метод getOwnerById");
-        Optional<PetOwner> petOwner = petOwnerRepository.findByTelegramId(id);
+        Optional<PetOwner> petOwner = petOwnerRepository.findById(id);
         if (petOwner.isEmpty()) {
             throw new OwnerNotFoundException(String.format("Owner [%s] not found", id));
         }

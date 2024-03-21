@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pro.sky.telebotpetshelter.entity.PetOwner;
 import pro.sky.telebotpetshelter.exceptions.OwnerNotFoundException;
@@ -48,12 +49,12 @@ class PetOwnerServiceImplTest {
     void getOwnerById() {
         Long ownerId = 1L;
         PetOwner petOwner = new PetOwner(1L, "Иванов Иван");
-        petOwner.setTelegramId(ownerId);
-        when(petOwnerRepository.findByTelegramId(ownerId)).thenReturn(Optional.of(petOwner));
+        //petOwner.setTelegramId(ownerId);
+        Mockito.when(petOwnerRepository.findById(ownerId)).thenReturn(Optional.of(petOwner));
 
         PetOwner retrievedOwner = petOwnerService.getOwnerById(ownerId);
 
-        verify(petOwnerRepository, times(1)).findByTelegramId(ownerId);
+        Mockito.verify(petOwnerRepository, times(1)).findById(ownerId);
         assertEquals(ownerId, retrievedOwner.getTelegramId());
         assertEquals(petOwner.getName(), retrievedOwner.getName());
     }
@@ -62,7 +63,7 @@ class PetOwnerServiceImplTest {
     public void testGetOwnerById_OwnerNotFound() {
 
         Long ownerId = 2L;
-        when(petOwnerRepository.findByTelegramId(ownerId)).thenReturn(Optional.empty());
+        Mockito.when(petOwnerRepository.findById(ownerId)).thenReturn(Optional.empty());
 
         assertThrows(OwnerNotFoundException.class, () -> petOwnerService.getOwnerById(ownerId));
     }
