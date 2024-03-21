@@ -25,7 +25,7 @@ public class PetOwnerController {
     @PostMapping
     @Operation(summary = "Добавить усыновителя животного")
     public ResponseEntity<PetOwner> addOwner(
-            //       @Parameter(name = "Объект пользователя") @RequestBody PetOwner petOwner)
+
             @RequestParam  @Parameter(description = "id усыновителя") long telegramId,
             @RequestParam(required = false) @Parameter(description = "Имя") String name,
             @RequestParam(required = false) @Parameter(description = "email") String email,
@@ -33,7 +33,7 @@ public class PetOwnerController {
             @RequestParam(required = false) @Parameter(description = "Забрал животного или ещё нет") Boolean tookAnAnimal)
     {
         return ResponseEntity.ok(petOwnerService.addOwner(new PetOwner(telegramId, name, email, phoneNumber, tookAnAnimal)));
-//        return ResponseEntity.ok(petOwnerService.addOwner(petOwner));
+
     }
 
     @PutMapping

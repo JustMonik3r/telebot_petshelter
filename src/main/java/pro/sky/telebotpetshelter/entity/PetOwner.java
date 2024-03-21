@@ -13,7 +13,7 @@ public class PetOwner {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "telegram_id")
+    @Column(name = "telegramId")
     private Long telegramId;
 
     @Column(name = "name")

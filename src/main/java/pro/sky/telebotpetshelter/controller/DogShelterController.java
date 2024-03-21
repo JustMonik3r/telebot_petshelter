@@ -53,7 +53,7 @@ public class DogShelterController {
         return dogShelterService.updateShelter(new DogShelter(id, name, location, timetable, about_shelter, security, safetyMeasures));
     }
 
-    @GetMapping()
+    @GetMapping("/all")
     public List<DogShelter> getAll() {
         return dogShelterService.getAll();
     }

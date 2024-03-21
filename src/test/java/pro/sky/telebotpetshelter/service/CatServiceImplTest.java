@@ -55,7 +55,6 @@ class CatServiceImplTest {
     public void getById() {
         // Создаем кота для теста
         Cat cat = new Cat(1L, "Tom", 3, true, Vaccinations.YES);
-        //cat.setId(1L);
 
         // Мокируем поведение метода findById в репозитории
         Mockito.when(catRepository.findById(1L)).thenReturn(Optional.of(cat));
@@ -114,27 +113,26 @@ class CatServiceImplTest {
     }
 
 
-    //    @Test
-//    public void remove() {
-//        // Создаем кота для теста
-//        Cat cat = new Cat(1L, "Tom", 3, true, Vaccinations.YES);
-//        //cat.setId(1L);
-//
-//        // Мокируем поведение метода getById в сервисе
-//        Mockito.when(catServiceImpl.getById(1L)).thenReturn(cat);
-//
-//        // Вызываем метод remove
-//        //catServiceImpl.remove(1L);
-//
-//        // Проверяем, что метод getById был вызван один раз с аргументом 1L
-//        Mockito.verify(catServiceImpl, Mockito.times(1)).getById(1L);
-//
-//        // Проверяем, что метод deleteById был вызван один раз с аргументом 1L
-//        Mockito.verify(catRepository, Mockito.times(1)).deleteById(1L);
-//
-////        // Проверяем, что логгер был вызван один раз с нужным сообщением
-////        Mockito.verify(logger, Mockito.times(1)).info("Вызван метод remove(удаление кота)");
-//    }
+        @Test
+    public void remove() {
+        // Создаем кота для теста
+        Cat cat = new Cat(1L, "Tom", 3, true, Vaccinations.YES);
+
+        // Мокируем поведение метода getById в сервисе
+        Mockito.when(catRepository.findById(1L)).thenReturn(Optional.of(cat));
+
+        // Вызываем метод remove
+        catServiceImpl.remove(1L);
+
+        // Проверяем, что метод getById был вызван один раз с аргументом 1L
+        Mockito.verify(catRepository, Mockito.times(1)).findById(1L);
+
+        // Проверяем, что метод deleteById был вызван один раз с аргументом 1L
+        Mockito.verify(catRepository, Mockito.times(1)).deleteById(1L);
+
+//        // Проверяем, что логгер был вызван один раз с нужным сообщением
+//        Mockito.verify(logger, Mockito.times(1)).info("Вызван метод remove(удаление кота)");
+    }
     @Test
     public void getAll() {
         // Создаем список котов для теста

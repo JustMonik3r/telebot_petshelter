@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ReportServiceImplTest {
+class VolunteerServiceImplTest {
 
     @Test
-    void findById() {
+    void createVolunteer() {
     }
 
     @Test
@@ -15,10 +15,10 @@ class ReportServiceImplTest {
     }
 
     @Test
-    void delete() {
+    void findAnyVolunteer() {
     }
 
     @Test
-    void postReport() {
+    void deleteVolunteer() {
     }
 }
