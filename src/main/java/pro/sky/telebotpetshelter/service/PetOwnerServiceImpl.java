@@ -58,7 +58,17 @@ public class PetOwnerServiceImpl implements PetOwnerService {
         }
         PetOwner currentOwner = OwnerId.get();
 
-        currentOwner.setName(petOwner.getName());
+        if (petOwner.getName() != null) {
+            currentOwner.setName(petOwner.getName());
+        }
+        if (petOwner.getEmail() != null) {
+            currentOwner.setEmail(petOwner.getEmail());
+        }
+        if (petOwner.getPhoneNumber() != null) {
+            currentOwner.setPhoneNumber(petOwner.getPhoneNumber());
+        }
+        currentOwner.setTookAnAnimal(petOwner.isTookAnAnimal());
+
         return petOwnerRepository.save(currentOwner);
     }
 

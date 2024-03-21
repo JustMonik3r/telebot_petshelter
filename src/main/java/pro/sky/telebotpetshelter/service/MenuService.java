@@ -15,13 +15,23 @@ public class MenuService {
     @Value("${telegram.bot.token}")
     TelegramBot telegramBot = new TelegramBot("${telegram.bot.token}");
     private final KeyboardUtil keyboardUtil;
+    private final UserNameService userNameService;
 
-    public MenuService(KeyboardUtil keyboardUtil) {
+    public MenuService(KeyboardUtil keyboardUtil, UserNameService userNameService) {
         this.keyboardUtil = keyboardUtil;
+        this.userNameService = userNameService;
     }
+
+//    public MenuService(KeyboardUtil keyboardUtil) {
+//        this.keyboardUtil = keyboardUtil;
+//    }
 
     public SendMessage getStartMenuShelter(Update update) {
         InlineKeyboardMarkup keyboard = keyboardUtil.setKeyboard(CAT, DOG);
+        if (userNameService.newUser(update)) {
+            userNameService.registerUser(update);
+        }
+
         SendMessage sendMessage = new SendMessage(update.message().chat().id(), "Добро пожаловать в наш приют! Если вы ищете верного и преданного друга, то пришли по адресу! " +
                 " Вы хотите подружиться с кошкой или с " +
                 "собакой? Пожалуйста, выберите подходящий приют, чтобы узнать больше.").replyMarkup(keyboard);

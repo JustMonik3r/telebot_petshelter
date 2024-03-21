@@ -51,6 +51,7 @@ public class PetOwnerController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Получение усыновителя по id")
     public ResponseEntity<PetOwner> getOwnerById(@PathVariable long id) {
         try {
             petOwnerService.getOwnerById(id);
@@ -61,11 +62,13 @@ public class PetOwnerController {
     }
 
     @GetMapping("/all")
+    @Operation(summary = "Получение всех усыновителей")
     public ResponseEntity<List<PetOwner>> getAllOwners() {
         return ResponseEntity.ok(petOwnerService.getAllOwners());
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Удаление усыновителя по id")
     public ResponseEntity<Void> deleteOwner(@PathVariable long id) {
         try {
             petOwnerService.deleteOwner(id);
