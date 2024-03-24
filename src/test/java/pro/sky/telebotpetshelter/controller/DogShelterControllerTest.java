@@ -98,7 +98,7 @@ class DogShelterControllerTest {
         when(dogShelterRepository.findAll()).thenReturn(new ArrayList<>(List.of(dogShelterObject())));
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/dogs/shelters")
+                        .get("/dogs/shelters/all")
                         .content(catShelterJSON().toString())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))

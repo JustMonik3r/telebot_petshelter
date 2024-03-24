@@ -39,6 +39,25 @@ public class CatShelter {
     @Column(name = "safety_measures")
     private String safetyMeasures;
 
+    @Column(name = "HomeRecommendForBigPet")
+    private String HomeRecommendForBigPet;
+    @Column(name = "HomeRecommendForSmallPet")
+    private String HomeRecommendForSmallPet;
+    @Column(name = "RecForTransport")
+    private String RecForTransport;
+    @Column(name = "DocumentList")
+    private String DocumentList;
+    @Column(name = "RulesForMeeting")
+    private String RulesForMeeting;
+    @Column(name = "ReasonsForRefusal")
+    private String ReasonsForRefusal;
+    @Column(name = "RecForProvenHandlers")
+    private String RecForProvenHandlers;
+    @Column(name = "HandlerTips")
+    private String HandlerTips;
+    @Column(name = "HomeRecommendForDisable")
+    private String HomeRecommendForDisable;
+
     //POST конструктор
     public CatShelter(Long id, String name, String location, String timetable, String aboutShelter, String security, String safetyMeasures) {
         this.id = id;
