@@ -30,4 +30,6 @@ public interface ShelterService<T, D> {
     CatShelter getAllCatShelterInfo();
 
     DogShelter getAllDogShelterInfo();
+
+    String getContacts();
 }

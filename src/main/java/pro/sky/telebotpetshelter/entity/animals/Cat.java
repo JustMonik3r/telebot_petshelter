@@ -94,12 +94,11 @@ public class Cat {
 
     @Override
     public String toString() {
-        return "Cat{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                ", isHealthy=" + isHealthy +
-                ", vaccinations=" + vaccinations +
-                '}';
+        String nohealthy = "";
+        if(!isHealthy) nohealthy = "не " + nohealthy;
+        return "Кот " + name +
+                ", " + age +
+                " лет, " + vaccinations + ", " + nohealthy +
+                " здоров. ";
     }
 }

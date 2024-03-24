@@ -1,5 +1,6 @@
 package pro.sky.telebotpetshelter.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -31,6 +32,7 @@ public class CatShelterController {
 
 
     @PostMapping()
+    @Operation(summary = "Добавить приют для котов")
     public CatShelter create(@RequestParam @Parameter(description = "Название приюта") String name,
                              @RequestParam @Parameter(description = "Адрес приюта") String location,
                              @RequestParam @Parameter(description = "График работы приюта") String timetable,
@@ -42,6 +44,7 @@ public class CatShelterController {
     }
 
     @PutMapping()
+    @Operation(summary = "Изменить информацию о приюте для котов")
     public CatShelter update(@RequestParam @Parameter(description = "id приюта") long id,
                              @RequestParam @Parameter(description = "Название приюта") String name,
                              @RequestParam @Parameter(description = "Адрес приюта") String location,
@@ -54,16 +57,19 @@ public class CatShelterController {
     }
 
     @GetMapping("/all")
+    @Operation(summary = "Получение всех приютов для котов")
     public List<CatShelter> getAll() {
         return catShelterService.getAll();
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Получение приюта для котов по id")
     public CatShelter getShelterId(@PathVariable @Parameter(description = "id приюта") long id) {
         return (catShelterService.getShelterById(id));
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Удаление приюта для котов по id")
     public ResponseEntity<Void> delete(@PathVariable @Parameter(description = "id приюта") long id) {
         try {
             catShelterService.deleteShelter(id);

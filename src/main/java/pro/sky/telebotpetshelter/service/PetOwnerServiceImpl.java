@@ -33,7 +33,7 @@ public class PetOwnerServiceImpl implements PetOwnerService {
     @Override
     public PetOwner getOwnerById(Long id) {
         logger.info("Был вызван метод getOwnerById");
-        Optional<PetOwner> petOwner = petOwnerRepository.findByTelegramId(id);
+        Optional<PetOwner> petOwner = petOwnerRepository.findById(id);
         if (petOwner.isEmpty()) {
             throw new OwnerNotFoundException(String.format("Owner [%s] not found", id));
         }
@@ -58,8 +58,17 @@ public class PetOwnerServiceImpl implements PetOwnerService {
         }
         PetOwner currentOwner = OwnerId.get();
 
-        currentOwner.setFirstName(petOwner.getFirstName());
-        currentOwner.setLastName(petOwner.getLastName());
+        if (petOwner.getName() != null) {
+            currentOwner.setName(petOwner.getName());
+        }
+        if (petOwner.getEmail() != null) {
+            currentOwner.setEmail(petOwner.getEmail());
+        }
+        if (petOwner.getPhoneNumber() != null) {
+            currentOwner.setPhoneNumber(petOwner.getPhoneNumber());
+        }
+        currentOwner.setTookAnAnimal(petOwner.isTookAnAnimal());
+
         return petOwnerRepository.save(currentOwner);
     }
 

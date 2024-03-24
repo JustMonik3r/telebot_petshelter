@@ -93,12 +93,18 @@ public class Dog {
 
     @Override
     public String toString() {
-        return "Dog{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                ", isHealthy=" + isHealthy +
-                ", vaccinations=" + vaccinations +
-                '}';
+        String nohealthy = "";
+        if(!isHealthy) nohealthy = "не " + nohealthy;
+        return "Собака " + name +
+                ", " + age +
+                " лет, " + vaccinations + ", " + nohealthy +
+                " здоров. ";
+//        return "Dog{" +
+//                "id=" + id +
+//                ", name='" + name + '\'' +
+//                ", age=" + age +
+//                ", isHealthy=" + isHealthy +
+//                ", vaccinations=" + vaccinations +
+//                '}';
     }
 }

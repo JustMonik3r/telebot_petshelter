@@ -14,38 +14,22 @@ public class VolunteerServiceImpl implements VolunteerService {
         this.volunteerRepository = volunteerRepository;
     }
 
-    /**
-     * Метод для создания и сохранения объекта волонтера в БД
-     * @param volunteer
-     * @return
-     */
     public Volunteer createVolunteer (Volunteer volunteer){
         return volunteerRepository.save(volunteer);
     }
 
-    /**
-     * Метод возвращает всех волонтеров из БД
-     * @return список найденных волонтеров
-     */
+
     public Collection<Volunteer> findAll() {
         return volunteerRepository.findAll();
     }
 
-    /**
-     * Возвращает любого волонтера из списка волонтеров.
-     *
-     * @return объект типа Optional<Volunteer>, содержащий любого волонтера из списка волонтеров,
-     * если список не пустой, иначе пустой объект Optional.
-     */
+
     public Optional<Volunteer> findAnyVolunteer() {
         return findAll().stream()
                 .findAny();
     }
 
-    /**
-     * Удаляет волонтера из БД
-     * @param telegramId
-     */
+
     public void deleteVolunteer(Long telegramId) {
         volunteerRepository.deleteById(telegramId);
     }

@@ -29,4 +29,32 @@ public interface CatShelterRepository extends JpaRepository<CatShelter, Long> {
 
     @Query(value = "SELECT * FROM cat_shelter", nativeQuery = true)
     CatShelter getAllInfo();
+
+    // add to repo
+    @Query(value = "SELECT ReasonsForRefusal FROM cat_shelter", nativeQuery = true)
+    String getReasonsForRefusal();
+
+    @Query(value = "SELECT RecForProvenHandlers FROM cat_shelter", nativeQuery = true)
+    String getRecForProvenHandlers();
+
+    @Query(value = "SELECT HandlerTips FROM cat_shelter", nativeQuery = true)
+    String getHandlerTips();
+
+    @Query(value = "SELECT HomeRecommendForDisable FROM cat_shelter", nativeQuery = true)
+    String getHomeRecommendForDisable();
+
+    @Query(value = "SELECT HomeRecommendForBigPet FROM cat_shelter", nativeQuery = true)
+    String getHomeRecommendForBigPet();
+
+    @Query(value = "SELECT HomeRecommendForSmallPet FROM cat_shelter", nativeQuery = true)
+    String getHomeRecommendForSmallPet();
+
+    @Query(value = "SELECT RecForTransport FROM cat_shelter", nativeQuery = true)
+    String getRecForTransport();
+
+    @Query(value = "SELECT DocumentList FROM cat_shelter", nativeQuery = true)
+    String getDocumentList();
+
+    @Query(value = "SELECT RulesForMeeting FROM cat_shelter", nativeQuery = true)
+    String getRulesForMeeting();
 }

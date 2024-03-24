@@ -2,6 +2,7 @@ package pro.sky.telebotpetshelter.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pro.sky.telebotpetshelter.utils.Vaccinations;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/dogs")
+@Tag(name = "Объект СОБАКА", description = "CRUD-методы для работы объектом собака")
 public class DogController {
     private final DogService dogService;
 
