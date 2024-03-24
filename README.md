@@ -22,6 +22,8 @@
 
 IntelliJ IDEA 2023.2 (Community Edition) (Build #IC-232.8660.185)
 
+Виртуальная БД на хостинге deephost.pw
+
 SDK Amazon Corretto v17.0.8
 
 JavaTelegramBotApi v5.7.0
