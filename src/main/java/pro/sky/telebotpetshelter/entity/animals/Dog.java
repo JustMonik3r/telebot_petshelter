@@ -95,9 +95,9 @@ public class Dog {
     public String toString() {
         String nohealthy = "";
         if(!isHealthy) nohealthy = "не " + nohealthy;
-        return "Кот " + name +
+        return "Собака " + name +
                 ", " + age +
-                "лет, " + vaccinations + ", " + nohealthy +
+                " лет, " + vaccinations + ", " + nohealthy +
                 " здоров. ";
 //        return "Dog{" +
 //                "id=" + id +

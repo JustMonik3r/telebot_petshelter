@@ -98,7 +98,7 @@ public class Cat {
         if(!isHealthy) nohealthy = "не " + nohealthy;
         return "Кот " + name +
                 ", " + age +
-                "лет, " + vaccinations + ", " + nohealthy +
+                " лет, " + vaccinations + ", " + nohealthy +
                 " здоров. ";
     }
 }
